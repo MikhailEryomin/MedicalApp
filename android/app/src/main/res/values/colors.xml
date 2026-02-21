@@ -1,10 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Основные цвета из твоего кода -->
+    <color name="primary_teal">#0D9488</color> <!-- Твой зеленый/тил -->
+    <color name="background_gray">#F5F7FA</color> <!-- Светло-серый фон -->
+    <color name="white">#FFFFFF</color>
+
+    <!-- Тексты -->
+    <color name="text_primary">#1F2937</color> <!-- gray-800 -->
+    <color name="text_secondary">#6B7280</color> <!-- gray-500/600 -->
+    <color name="text_hint">#9CA3AF</color> <!-- gray-400 -->
+
+    <!-- Элементы -->
+    <color name="input_bg">#FFFFFF</color>
+    <color name="button_bg_gray">#F3F4F6</color> <!-- gray-100 для кнопок -->
+    <color name="icon_gray">#9CA3AF</color>
+    <color name="info_blue_bg">#EFF6FF</color> <!-- Голубой фон Info -->
+    <color name="info_blue_text">#1E40AF</color> <!-- Темно-синий текст -->
+    <color name="border_gray">#D1D5DB</color> <!-- Серый для рамок -->
+    <!-- Статусы рецептов -->
+    <color name="status_active">#10B981</color>     <!-- Зеленый -->
+    <color name="status_warning">#F59E0B</color>    <!-- Оранжевый -->
+    <color name="status_completed">#6B7280</color>  <!-- Серый -->
+
+    <!-- Теги аллергий -->
+    <color name="tag_red_bg">#FEF2F2</color>        <!-- Светло-красный фон -->
+    <color name="tag_red_text">#DC2626</color>       <!-- Красный текст -->
+
+    <!-- Теги болезней -->
+    <color name="tag_blue_bg">#EFF6FF</color>        <!-- Светло-синий фон -->
+    <color name="tag_blue_text">#2563EB</color>      <!-- Синий текст -->
+
+    <!-- Дополнительный серый для дат -->
+    <color name="text_light">#9CA3AF</color>
+    <color name="green_light_bg">#D1FAE5</color>
+    <color name="green_text">#10B981</color>
 </resources>

@@ -1,0 +1,8 @@
+<resources>
+    <style name="MedicalApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#4B5563</item> <!-- Gray 600 -->
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

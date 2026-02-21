@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <!-- 1. Экран авторизации -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.myapplication.presentation.LoginFragment"
+        android:label="Authorization"
+        tools:layout="@layout/fragment_login">
+
+        <!-- Действие: Врач вошел -> идем к списку пациентов -->
+        <action
+            android:id="@+id/action_auth_to_doctorHome"
+            app:destination="@id/doctorHomeFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="false" />
+
+        <!-- Действие: Пациент вошел -> идем к списку рецептов -->
+        <action
+            android:id="@+id/action_auth_to_patientHome"
+            app:destination="@id/patientHomeFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- ================== FLOW ВРАЧА ================== -->
+
+    <!-- 2. Главное меню Врача (Список пациентов) -->
+    <fragment
+        android:id="@+id/doctorHomeFragment"
+        android:name="com.example.myapplication.presentation.DoctorHomeFragment"
+        android:label="Patients List"
+        tools:layout="@layout/fragment_doctor_home">
+
+        <action
+            android:id="@+id/action_doctorHome_to_createPatient"
+            app:destination="@id/createPatientFragment" />
+
+        <action
+            android:id="@+id/action_doctorHome_to_patientDetails"
+            app:destination="@id/patientDetailsFragment" />
+
+        <action
+            android:id="@+id/action_doctorHome_to_profile"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <!-- 3. Создание пациента -->
+    <fragment
+        android:id="@+id/createPatientFragment"
+        android:name="com.example.myapplication.presentation.CreatePatientFragment"
+        android:label="New Patient"
+        tools:layout="@layout/fragment_create_patient" />
+
+    <!-- 4. Карточка пациента (Детали) -->
+    <fragment
+        android:id="@+id/patientDetailsFragment"
+        android:name="com.example.myapplication.presentation.PatientDetailsFragment"
+        android:label="Patient Details"
+        tools:layout="@layout/fragment_patient_details">
+
+        <!-- Принимаем аргумент ID пациента -->
+        <argument
+            android:name="patientId"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_patientDetails_to_createPrescription"
+            app:destination="@id/createPrescriptionFragment" />
+    </fragment>
+
+    <!-- 5. Создание рецепта -->
+    <fragment
+        android:id="@+id/createPrescriptionFragment"
+        android:name="com.example.myapplication.presentation.CreatePrescriptionFragment"
+        android:label="New Prescription"
+        tools:layout="@layout/fragment_create_prescription">
+
+        <argument
+            android:name="patientId"
+            app:argType="integer" />
+    </fragment>
+
+    <!-- ================== FLOW ПАЦИЕНТА ================== -->
+
+    <!-- 2. Главное меню Пациента (Список рецептов) -->
+    <fragment
+        android:id="@+id/patientHomeFragment"
+        android:name="com.example.myapplication.presentation.PatientHomeFragment"
+        android:label="My Prescriptions"
+        tools:layout="@layout/fragment_patient_home">
+
+        <action
+            android:id="@+id/action_patientHome_to_prescriptionDetails"
+            app:destination="@id/prescriptionDetailsFragment" />
+
+        <action
+            android:id="@+id/action_patientHome_to_profile"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <!-- 6. Детали рецепта (Просмотр) -->
+    <fragment
+        android:id="@+id/prescriptionDetailsFragment"
+        android:name="com.example.myapplication.presentation.PrescriptionDetailsFragment"
+        android:label="Prescription Details"
+        tools:layout="@layout/fragment_prescription_details">
+
+        <argument
+            android:name="prescriptionId"
+            app:argType="integer" />
+    </fragment>
+
+    <!-- 7. Профиль (Общий или настраиваемый) -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.myapplication.presentation.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_profile_to_auth"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+</navigation>
