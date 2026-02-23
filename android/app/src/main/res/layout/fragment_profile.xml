@@ -188,13 +188,13 @@
                         </LinearLayout>
 
                         <!-- Switch -->
-                        <com.google.android.material.materialswitch.MaterialSwitch
-                            android:id="@+id/switchReminders"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            app:thumbTint="@color/white"
-                            app:trackTint="@color/primary_teal" />
+<!--                        <com.google.android.material.materialswitch.MaterialSwitch-->
+<!--                            android:id="@+id/switchReminders"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:checked="true"-->
+<!--                            app:thumbTint="@color/white"-->
+<!--                            app:trackTint="@color/primary_teal" />-->
                     </LinearLayout>
 
                     <!-- Divider -->
@@ -247,13 +247,13 @@
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
 
-                        <com.google.android.material.materialswitch.MaterialSwitch
-                            android:id="@+id/switchPush"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            app:thumbTint="@color/white"
-                            app:trackTint="@color/primary_teal" />
+<!--                        <com.google.android.material.materialswitch.MaterialSwitch-->
+<!--                            android:id="@+id/switchPush"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:checked="true"-->
+<!--                            app:thumbTint="@color/white"-->
+<!--                            app:trackTint="@color/primary_teal" />-->
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -320,13 +320,13 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
 
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchFaceId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        app:thumbTint="@color/white"
-                        app:trackTint="@color/primary_teal" />
+<!--                    <com.google.android.material.materialswitch.MaterialSwitch-->
+<!--                        android:id="@+id/switchFaceId"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:checked="false"-->
+<!--                        app:thumbTint="@color/white"-->
+<!--                        app:trackTint="@color/primary_teal" />-->
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

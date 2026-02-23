@@ -90,111 +90,14 @@
         android:clipToPadding="false"
         android:fillViewport="true">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPrescriptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="24dp"/>
 
-            <!-- Карточка 1: Amoxicillin -->
-            <include layout="@layout/item_patient_prescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
-            <!-- Карточка 2: Losartan (вторая карточка для демо) -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:contentPadding="20dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:orientation="horizontal">
-                        <FrameLayout
-                            android:layout_width="48dp"
-                            android:layout_height="48dp">
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/bg_pill_icon"/>
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_pill"/>
-                        </FrameLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:orientation="vertical">
-                            <TextView android:text="Losartan 50mg"
-                                android:textColor="@color/text_primary"
-                                android:textSize="16sp" android:textStyle="bold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"/>
-                            <TextView android:text="📅 Feb 10 – Apr 10"
-                                android:textColor="@color/text_secondary" android:textSize="14sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView android:text="📝 1 tablet once daily"
-                                android:textColor="@color/text_secondary" android:textSize="14sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView android:text="🏥 Dr. Petrov A.B."
-                                android:textColor="@color/text_secondary" android:textSize="14sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                    <!-- Progress -->
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="8dp"
-                        android:layout_marginBottom="4dp">
-                        <View android:layout_width="match_parent" android:layout_height="match_parent"
-                            android:background="@drawable/bg_progress_track"/>
-                        <View android:layout_width="260dp" android:layout_height="match_parent"
-                            android:background="@drawable/bg_progress_fill"/>
-                    </FrameLayout>
-                    <TextView android:text="52 of 60 pills left"
-                        android:textColor="@color/text_secondary" android:textSize="12sp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_width="match_parent" android:layout_height="48dp"
-                        android:background="@drawable/bg_button_teal_rounded"
-                        android:gravity="center" android:text="Mark as Taken"
-                        android:textColor="@color/white" android:textSize="14sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Пустое состояние (скрыто по умолчанию) -->
-            <TextView
-                android:id="@+id/tvEmpty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:gravity="center"
-                android:text="No prescriptions found"
-                android:textColor="@color/text_hint"
-                android:textSize="16sp"
-                android:visibility="gone" />
-
-        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

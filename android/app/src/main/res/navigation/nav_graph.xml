@@ -46,15 +46,30 @@
 
         <action
             android:id="@+id/action_doctorHome_to_createPatient"
-            app:destination="@id/createPatientFragment" />
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/createPatientFragment"
+            app:popUpTo="@id/doctorHomeFragment" />
 
         <action
             android:id="@+id/action_doctorHome_to_patientDetails"
-            app:destination="@id/patientDetailsFragment" />
+            app:destination="@id/patientDetailsFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/doctorHomeFragment" />
 
         <action
             android:id="@+id/action_doctorHome_to_profile"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/doctorHomeFragment" />
     </fragment>
 
     <!-- 3. Создание пациента -->
@@ -62,7 +77,16 @@
         android:id="@+id/createPatientFragment"
         android:name="com.example.myapplication.presentation.CreatePatientFragment"
         android:label="New Patient"
-        tools:layout="@layout/fragment_create_patient" />
+        tools:layout="@layout/fragment_create_patient" >
+        <action
+            android:id="@+id/action_createPatientFragment_to_doctorHomeFragment"
+            app:destination="@id/doctorHomeFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/doctorHomeFragment" />
+    </fragment>
 
     <!-- 4. Карточка пациента (Детали) -->
     <fragment
@@ -78,7 +102,12 @@
 
         <action
             android:id="@+id/action_patientDetails_to_createPrescription"
-            app:destination="@id/createPrescriptionFragment" />
+            app:destination="@id/createPrescriptionFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/patientDetailsFragment" />
     </fragment>
 
     <!-- 5. Создание рецепта -->
@@ -91,6 +120,13 @@
         <argument
             android:name="patientId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_createPrescriptionFragment_to_patientDetailsFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/patientDetailsFragment" />
     </fragment>
 
     <!-- ================== FLOW ПАЦИЕНТА ================== -->
@@ -104,11 +140,21 @@
 
         <action
             android:id="@+id/action_patientHome_to_prescriptionDetails"
-            app:destination="@id/prescriptionDetailsFragment" />
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/prescriptionDetailsFragment"
+            app:popUpTo="@id/patientHomeFragment" />
 
         <action
             android:id="@+id/action_patientHome_to_profile"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/patientHomeFragment" />
     </fragment>
 
     <!-- 6. Детали рецепта (Просмотр) -->
@@ -133,6 +179,10 @@
         <action
             android:id="@+id/action_profile_to_auth"
             app:destination="@id/loginFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
     </fragment>
