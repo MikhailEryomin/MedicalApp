@@ -73,14 +73,6 @@
                     android:text="📝 1 tablet twice daily"
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tvPrescDoctor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🏥 Dr. Petrov A.B."
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -97,21 +89,14 @@
                 android:orientation="vertical">
 
                 <!-- Полоска прогресса -->
-                <FrameLayout
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="8dp">
-                    <!-- Серый фон -->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bg_progress_track" />
-                    <!-- Зеленая заливка (ширину менять из кода) -->
-                    <View
-                        android:id="@+id/progressFill"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bg_progress_fill" />
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:progress="50"
+                    android:max="100" />
 
                 <TextView
                     android:id="@+id/tvPillsCount"

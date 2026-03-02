@@ -27,10 +27,11 @@ class PatientListAdapter(private val onItemClick: (item: Patient) -> Unit): List
 
     inner class PatientViewHolder(private val binding: ItemPatientBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Patient) {
-            val name = item.name
+            val name = "${item.firstName} ${item.lastName}"
 
             binding.tvPatientName.text = name
-            binding.tvPatientAge.text = item.age.toString()
+            binding.tvPatientAge.text = "${item.age} years"
+            binding.tvInitials.text = "${item.firstName.first()}${item.lastName.first()}"
             binding.cardPatient.setOnClickListener {
                 onItemClick(item)
             }

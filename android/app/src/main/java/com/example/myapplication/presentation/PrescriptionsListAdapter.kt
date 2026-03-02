@@ -9,9 +9,11 @@ import com.example.myapplication.databinding.ItemPatientBinding
 import com.example.myapplication.databinding.ItemPatientPrescriptionBinding
 import com.example.myapplication.domain.Prescription
 import com.example.myapplication.domain.Patient
+import com.example.myapplication.domain.PrescriptionUiModel
 import com.example.myapplication.presentation.PatientListAdapter.DiffCallback
 
-class PrescriptionsListAdapter(private val onItemClick: (item: Prescription) -> Unit): ListAdapter<Prescription, PrescriptionsListAdapter.PrescriptionViewHolder>(DiffCallback()) {
+class PrescriptionsListAdapter(private val onItemClick: (item: PrescriptionUiModel) -> Unit,
+    private val onMarkTakenClick: (item: PrescriptionUiModel) -> Unit): ListAdapter<PrescriptionUiModel, PrescriptionsListAdapter.PrescriptionViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -29,23 +31,34 @@ class PrescriptionsListAdapter(private val onItemClick: (item: Prescription) -> 
     }
 
     inner class PrescriptionViewHolder(private val binding: ItemPatientPrescriptionBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Prescription) {
-            binding.tvPrescMedicine.text = item.name
-            binding.tvPillsCount.text = "${item.pillsCount} of ${item.pillsCount} pills left"
-            binding.tvPrescDoctor.text = item.doctorName
-            binding.llPrescription.setOnClickListener { onItemClick(item) }
+        fun bind(item: PrescriptionUiModel) {
+            binding.tvPrescMedicine.text = item.prescription.medicine.name
+            binding.llPrescription.setOnClickListener {
+                onItemClick(item)
+            }
 
-            binding.btnMarkTaken.setOnClickListener {  }
+            binding.progressBar.max = 100
+            binding.progressBar.progress = item.progressPercent
+            binding.tvPillsCount.text = "${item.takenCount} / ${item.totalCount} taken"
+            binding.tvPrescDates.text = "${item.prescription.startDate} - ${item.prescription.endDate}"
+            binding.tvPrescDosage.text = "${item.prescription.frequency} pills per day"
+
+            binding.btnMarkTaken.setOnClickListener {
+                onMarkTakenClick(item)
+            }
+
+            binding.btnMarkTaken.isEnabled = !item.isCompleted
+            binding.btnMarkTaken.text = if (item.isCompleted) "Completed" else "Mark as Taken"
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<Prescription>() {
-        override fun areItemsTheSame(oldItem:  Prescription, newItem: Prescription): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<PrescriptionUiModel>() {
+        override fun areItemsTheSame(oldItem:  PrescriptionUiModel, newItem: PrescriptionUiModel): Boolean {
             // Сравниваем ID элементов (уникальный идентификатор)
-            return oldItem.id == newItem.id
+            return oldItem.prescription.id == newItem.prescription.id
         }
 
-        override fun areContentsTheSame(oldItem: Prescription, newItem: Prescription): Boolean {
+        override fun areContentsTheSame(oldItem: PrescriptionUiModel, newItem: PrescriptionUiModel): Boolean {
             // Сравниваем содержимое (если данные изменились)
             return oldItem == newItem
         }

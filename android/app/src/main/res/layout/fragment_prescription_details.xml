@@ -37,18 +37,37 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/progressBarPrescription"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:paddingTop="48dp"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
     <!-- SCROLLABLE CONTENT -->
     <ScrollView
+        android:id="@+id/sbDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:fillViewport="true">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="24dp">
+
+
 
             <!-- Название лекарства -->
             <TextView
@@ -86,15 +105,14 @@
                         android:layout_marginBottom="16dp">
 
                         <!-- ProgressBar (Круговой) -->
-                        <ProgressBar
-                            android:id="@+id/circularProgress"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="160dp"
-                            android:layout_height="160dp"
-                            android:indeterminate="false"
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/circularProgressBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:max="100"
-                            android:progress="40"
-                            android:progressDrawable="@drawable/bg_circle_gray" />
+                            app:indicatorSize="150dp"
+                            android:progress="80"
+                            app:trackColor="@color/background_gray" />
 
                         <!-- Текст по центру -->
                         <LinearLayout
@@ -137,6 +155,7 @@
             <!-- SCHEDULE CARD -->
             <!-- ========================================= -->
             <androidx.cardview.widget.CardView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -299,6 +318,22 @@
                     <TextView
                         android:id="@+id/tvInstructions"
                         android:text="Take with food. Complete the full course even if you feel better."
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        android:lineSpacingExtra="4dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="Frequency"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tvFrequency"
+                        android:text="3 pills per day"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
                         android:lineSpacingExtra="4dp"

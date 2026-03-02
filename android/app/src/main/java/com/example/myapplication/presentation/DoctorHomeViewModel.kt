@@ -1,18 +1,50 @@
 package com.example.myapplication.presentation
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.data.Repository
+import androidx.lifecycle.viewModelScope
+import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.domain.Patient
+import kotlinx.coroutines.launch
 
 class DoctorHomeViewModel: ViewModel() {
 
+    private val repository = DoctorRepository()
+
+    private var allPatients: List<Patient> = emptyList()
+
     private var _patients = MutableLiveData<List<Patient>>()
     val patients get() = _patients
-    private val repository = Repository()
 
     init {
-        _patients.value = repository.getTestPatients()
+        loadMyPatients()
+    }
+
+    fun loadMyPatients() {
+
+        val userId = SessionManager.currentUser?.id ?: return
+
+        viewModelScope.launch {
+            try {
+                val doctor = repository.getDoctorProfile(userId)
+                if (doctor != null) {
+                    allPatients = repository.getPatientsForDoctor(doctor.id)
+                    _patients.value = allPatients
+                }
+            } catch (e: Exception) {
+                // Обработка ошибок
+            }
+        }
+    }
+
+    fun searchPatients(query: String) {
+        val lowercase = query.lowercase()
+        val result = allPatients.filter { patient ->
+            patient.firstName.lowercase().contains(lowercase) ||
+                    patient.lastName.contains(lowercase)
+        }
+        _patients.value = result
     }
 
 }

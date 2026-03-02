@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_gray">
 
     <!-- HEADER -->
@@ -63,16 +63,23 @@
                 android:layout_height="56dp"
                 android:background="@drawable/bg_rounded_input"
                 android:elevation="2dp"
-                android:hint="Search medicine..."
+                android:hint="e.g. Amoxycyclin"
                 android:paddingHorizontal="16dp"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_hint" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSearchMedicine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_search_prescription"
+                tools:itemCount="2"
+                />
 
             <!-- Dosage -->
             <TextView
                 style="@style/MedicalApp"
                 android:layout_marginTop="16dp"
-                android:text="Dosage" />
+                android:text="Dosage, mg" />
             <EditText
                 android:id="@+id/etDosage"
                 android:layout_width="match_parent"
@@ -247,16 +254,31 @@
         android:paddingBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPrescribe"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Prescribe"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/primary_teal"
-            app:cornerRadius="16dp" />
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPrescribe"
+                android:enabled="true"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Prescribe"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/primary_teal"
+                app:cornerRadius="16dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBarCreatePatient"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,9 @@
 package com.example.myapplication.presentation
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +21,9 @@ class DoctorHomeFragment: Fragment() {
     private lateinit var viewModel: DoctorHomeViewModel
 
     private val adapter = PatientListAdapter(
-        onItemClick = {item ->
-            findNavController().navigate(R.id.action_doctorHome_to_patientDetails)
-            //TRANSFERING PATIENT DATA
-            // ...
+        onItemClick = {patient ->
+            val action = DoctorHomeFragmentDirections.actionDoctorHomeToPatientDetails(patient.id)
+            findNavController().navigate(action)
         }
     )
 
@@ -48,13 +50,16 @@ class DoctorHomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("refresh_patients")?.observe(this) {
+            if (it) {
+                viewModel.loadMyPatients()
+                findNavController().currentBackStackEntry?.savedStateHandle?.remove<Boolean>("refresh_patients")
+            }
+        }
         bindViews()
     }
 
     private fun bindViews() {
-        binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
-        }
 
         binding.btnSettings.setOnClickListener {
             findNavController().navigate(R.id.action_doctorHome_to_profile)
@@ -63,6 +68,30 @@ class DoctorHomeFragment: Fragment() {
         binding.fabAddPatient.setOnClickListener {
             findNavController().navigate(R.id.action_doctorHome_to_createPatient)
         }
+
+        binding.etSearch.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+                viewModel.searchPatients(p0.toString())
+            }
+
+        })
 
         //recycleView
         binding.rvPatients.adapter = adapter

@@ -18,10 +18,11 @@
             app:destination="@id/doctorHomeFragment"
             app:enterAnim="@anim/scale_in"
             app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/scale_in"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
 
         <!-- Действие: Пациент вошел -> идем к списку рецептов -->
         <action
@@ -29,10 +30,11 @@
             app:destination="@id/patientHomeFragment"
             app:enterAnim="@anim/scale_in"
             app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/scale_in"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
     </fragment>
 
     <!-- ================== FLOW ВРАЧА ================== -->
@@ -43,6 +45,10 @@
         android:name="com.example.myapplication.presentation.DoctorHomeFragment"
         android:label="Patients List"
         tools:layout="@layout/fragment_doctor_home">
+
+        <argument
+            android:name="patientId"
+            app:argType="integer"/>
 
         <action
             android:id="@+id/action_doctorHome_to_createPatient"
@@ -120,13 +126,6 @@
         <argument
             android:name="patientId"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_createPrescriptionFragment_to_patientDetailsFragment"
-            app:enterAnim="@anim/scale_in"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/scale_in"
-            app:popExitAnim="@anim/slide_out_right"
-            app:destination="@id/patientDetailsFragment" />
     </fragment>
 
     <!-- ================== FLOW ПАЦИЕНТА ================== -->
@@ -137,6 +136,14 @@
         android:name="com.example.myapplication.presentation.PatientHomeFragment"
         android:label="My Prescriptions"
         tools:layout="@layout/fragment_patient_home">
+
+        <argument
+            android:name="prescriptionId"
+            app:argType="integer"/>
+
+        <argument
+            android:name="userId"
+            app:argType="integer"/>
 
         <action
             android:id="@+id/action_patientHome_to_prescriptionDetails"
@@ -175,6 +182,11 @@
         android:name="com.example.myapplication.presentation.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile">
+
+
+        <argument
+            app:argType="integer"
+            android:name="userId"/>
 
         <action
             android:id="@+id/action_profile_to_auth"

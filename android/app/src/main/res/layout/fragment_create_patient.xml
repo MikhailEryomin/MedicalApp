@@ -77,7 +77,7 @@
                     <!-- Full Name -->
                     <TextView
                         style="@style/MedicalApp"
-                        android:text="Full Name *" />
+                        android:text="First Name *" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
@@ -88,9 +88,28 @@
                             android:layout_width="24dp" android:layout_height="24dp"
                             android:src="@drawable/ic_user" app:tint="@color/icon_gray"/>
                         <EditText
-                            android:id="@+id/etFullName"
+                            android:id="@+id/etFirstName"
                             android:layout_width="match_parent" android:layout_height="match_parent"
-                            android:background="@null" android:hint="Enter full name"
+                            android:background="@null" android:hint="Enter first name"
+                            android:paddingStart="12dp" android:textColor="@color/text_primary"/>
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/MedicalApp"
+                        android:text="Last Name *" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_rounded_border"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp">
+                        <ImageView
+                            android:layout_width="24dp" android:layout_height="24dp"
+                            android:src="@drawable/ic_user" app:tint="@color/icon_gray"/>
+                        <EditText
+                            android:id="@+id/etLastName"
+                            android:layout_width="match_parent" android:layout_height="match_parent"
+                            android:background="@null" android:hint="Enter last name"
                             android:paddingStart="12dp" android:textColor="@color/text_primary"/>
                     </LinearLayout>
 
@@ -175,6 +194,8 @@
                             android:inputType="textEmailAddress"
                             android:paddingStart="12dp" android:textColor="@color/text_primary"/>
                     </LinearLayout>
+
+
                     <TextView
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="Required for patient login"
@@ -182,26 +203,116 @@
                         android:layout_marginTop="4dp" android:layout_marginStart="4dp"/>
 
 
-                    <!-- SNILS -->
+                    <!-- Секция: Медицинская информация -->
+                    <!-- Allergies -->
                     <TextView
-                        android:text="SNILS / ID Number"
                         style="@style/MedicalApp"
-                        android:layout_marginTop="16dp"/>
+                        android:layout_marginTop="16dp"
+                        android:text="Allergies" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_rounded_border"
-                        android:gravity="center_vertical"
-                        android:paddingHorizontal="16dp">
-                        <ImageView
-                            android:layout_width="24dp" android:layout_height="24dp"
-                            android:src="@drawable/ic_id_card" app:tint="@color/icon_gray"/>
-                        <EditText
-                            android:id="@+id/etSnils"
-                            android:layout_width="match_parent" android:layout_height="match_parent"
-                            android:background="@null" android:hint="Optional"
-                            android:paddingStart="12dp" android:textColor="@color/text_primary"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="56dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_rounded_border"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_info"
+                                app:tint="@color/icon_gray"/>
+
+                            <EditText
+                                android:id="@+id/etAllergy"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:hint="e.g. Penicillin"
+                                android:paddingStart="12dp"
+                                android:textColor="@color/text_primary"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"/>
+                        </LinearLayout>
+
+                        <ImageButton
+                            android:id="@+id/btnAddAllergy"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_button_teal_rounded"
+                            android:src="@drawable/baseline_add_24"
+                            app:tint="@color/white"
+                            android:contentDescription="Add allergy"/>
                     </LinearLayout>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupAllergies"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"/>
+
+                    <!-- Chronic Diseases -->
+                    <TextView
+                        style="@style/MedicalApp"
+                        android:text="Chronic Diseases"
+                        android:layout_marginTop="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="56dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_rounded_border"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_info"
+                                app:tint="@color/icon_gray"/>
+
+                            <EditText
+                                android:id="@+id/etDisease"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:hint="e.g. Diabetes"
+                                android:paddingStart="12dp"
+                                android:textColor="@color/text_primary"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"/>
+                        </LinearLayout>
+
+                        <ImageButton
+                            android:id="@+id/btnAddDisease"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_button_teal_rounded"
+                            android:src="@drawable/baseline_add_24"
+                            app:tint="@color/white"
+                            android:contentDescription="Add disease"/>
+                    </LinearLayout>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupDiseases"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -257,15 +368,31 @@
         android:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCreatePatient"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Create &amp; Print Access"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            app:cornerRadius="16dp"
-            app:backgroundTint="@color/primary_teal"/>
+            android:layout_height="match_parent">
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCreatePatient"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Create &amp; Print Access"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:cornerRadius="16dp"
+                app:backgroundTint="@color/primary_teal"/>
+
+            <ProgressBar
+                android:id="@+id/progressBarCreatePatient"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"/>
+
+
+        </FrameLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
