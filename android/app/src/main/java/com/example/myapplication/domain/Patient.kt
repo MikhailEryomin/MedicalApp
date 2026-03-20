@@ -4,8 +4,6 @@ import java.util.Date
 
 data class Patient (
     val id: Int,
-    val userId: Int,
-    val doctorId: Int,
     val firstName: String,
     val lastName: String,
     val birthDate: Date,
@@ -26,3 +24,4 @@ enum class Gender {
     MALE,
     FEMALE
 }
+

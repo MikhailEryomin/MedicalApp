@@ -95,18 +95,7 @@ class CreatePrescriptionViewModel: ViewModel() {
             _isLoading.value = true
             try {
 
-                val currentUser = SessionManager.currentUser ?: return@launch
-                val doctorProfile = doctorRepository.getDoctorProfile(currentUser.id)
-
-                if (doctorProfile == null) {
-                    Log.d("TAG", "DoctorProfile is not found")
-                    return@launch
-                }
-
-
-
                 doctorRepository.createPrescription(
-                    doctorId = doctorProfile.id,
                     patientId = patientId,
                     medicineId = medicine.id,
                     dosage = dosage,
@@ -114,6 +103,7 @@ class CreatePrescriptionViewModel: ViewModel() {
                     durationDays = duration,
                     notes = notes
                 )
+
                 _isSuccess.value = true
             } catch (e: Exception) {
                 _errorMessage.value = "Ошибка: ${e.message}"

@@ -8,8 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.domain.Gender
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-class CreatePatientViewModel: ViewModel() {
+class CreatePatientViewModel : ViewModel() {
 
     private val doctorRepository = DoctorRepository()
 
@@ -68,29 +70,31 @@ class CreatePatientViewModel: ViewModel() {
         _diseases.value = currentList
     }
 
-    fun createPatient(firstName: String, lastName: String, birthDate: String, email: String) {
+    fun createPatient(
+        firstName: String,
+        lastName: String,
+        birthDate: String,
+        email: String,
+        password: String
+    ) {
 
         if (!validateInput(firstName, lastName, birthDate, email)) return
-
-        val dateParts = birthDate.split(".")
-        val day = dateParts[0].toInt()
-        val month = dateParts[1].toInt()
-        val year = dateParts[2].toInt()
 
         viewModelScope.launch {
             _isLoading.value = true
             try {
 
-                val currentUser = SessionManager.currentUser ?: return@launch
-                val doctorProfile =
-                    doctorRepository.getDoctorProfile(currentUser.id) ?: return@launch
+                val inputFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val date = inputFormat.parse(birthDate)
+                val birthDateForServer = if (date != null) outputFormat.format(date) else ""
 
                 doctorRepository.createPatient(
-                    doctorId = doctorProfile.id,
                     firstName = firstName,
                     lastName = lastName,
-                    birthDate = DoctorRepository.createDate(year, month, day),
+                    birthDateStr = birthDateForServer,
                     email = email,
+                    password = password,
                     gender = selectedGender.value!!,
                     allergies = _allergies.value.orEmpty(),
                     diseases = _diseases.value.orEmpty()
@@ -111,7 +115,12 @@ class CreatePatientViewModel: ViewModel() {
         _errorMessage.value = null
     }
 
-    private fun validateInput(firstName: String, lastName: String, birthDate: String, email: String): Boolean {
+    private fun validateInput(
+        firstName: String,
+        lastName: String,
+        birthDate: String,
+        email: String
+    ): Boolean {
         if (firstName.isBlank() || lastName.isBlank()) {
             _errorMessage.value = "Please enter first name and last name"
             return false

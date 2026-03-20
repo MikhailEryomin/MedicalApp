@@ -30,18 +30,17 @@ class PatientHomeViewModel : ViewModel() {
 
     private fun loadMyPrescriptions() {
 
-        val currentUser = SessionManager.currentUser ?: return
-
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val patientProfile = repository.getPatientProfile(currentUser.id)
+                val patientProfile = repository.getPatientProfile()
+
                 val prescriptions = repository.getMyPrescriptions(patientProfile!!.id)
                 _isEmpty.value = prescriptions.isEmpty()
 
                 val uiModels = prescriptions.map { prescription ->
 
-                    val taken = repository.getTakenCount(prescription.id)
+                    val taken = prescription.takenCount
                     val total = prescription.totalDoses
                     val percent = if (total > 0) (taken * 100) / total else 0
                     val doctor = repository.getDoctorById(prescription.doctorId)

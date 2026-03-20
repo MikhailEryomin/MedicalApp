@@ -1,8 +1,12 @@
 package com.example.myapplication.data
 
 import android.util.Log
+import com.example.myapplication.data.network.RetrofitClient
+import com.example.myapplication.data.network.dto.CreatePatientRequestDto
+import com.example.myapplication.data.network.dto.CreatePrescriptionRequestDto
+import com.example.myapplication.data.network.dto.toDomain
 import com.example.myapplication.domain.*
-import kotlinx.coroutines.delay
+import com.example.myapplication.presentation.SessionManager
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -11,84 +15,114 @@ import java.util.Locale
 
 class DoctorRepository {
 
-    private val authRepository = AuthRepository()
-
-    suspend fun getPatientProfile(userId: Int): Patient? {
-        delay(100)
-        return mockPatients.find { it.userId == userId }
+    suspend fun getPatientProfile(): Patient {
+        val dto = RetrofitClient.authApi.getUserInfo()
+        return Patient(
+            id = dto.id,
+            firstName = dto.firstName,
+            lastName = dto.lastName,
+            birthDate = createDateByString(dto.birthDate!!),
+            gender = if(dto.gender == "MALE") Gender.MALE else Gender.FEMALE,
+            email = SessionManager.currentUser?.email ?: "",
+            allergies = dto.allergies ?: emptyList(),
+            chronicDiseases = dto.chronicDiseases ?: emptyList()
+        )
     }
 
-    suspend fun getDoctorProfile(userId: Int): Doctor? {
-        delay(100)
-        return mockDoctors.find { it.userId == userId }
+    suspend fun getDoctorProfile(): Doctor? {
+        return try {
+            val dto = RetrofitClient.authApi.getUserInfo()
+            if (dto.role != UserRole.DOCTOR.name) return null
+            return Doctor(
+                id = dto.id,
+                firstName = dto.firstName,
+                lastName = dto.lastName,
+                specialization = dto.specialization ?: "",
+                licenceNumber = dto.licenceNumber ?: ""
+            )
+
+        } catch (e: Exception) {
+            Log.e("DoctorRepository", "Ошибка загрузки профиля: ${e.message}")
+            null
+        }
     }
 
-    suspend fun getPatientsForDoctor(currentDoctorId: Int): List<Patient> {
-        delay(300)
-        return mockPatients.filter { it.doctorId == currentDoctorId }
+    suspend fun getPatientsForDoctor(): List<Patient> {
+        return try {
+            val patientDtos = RetrofitClient.doctorApi.getMyPatients()
+
+            val patients = patientDtos.map { it.toDomain() }
+
+            Log.d("DoctorRepository", "Успешно загружено пациентов: ${patients.size}")
+            patients
+        } catch (e: Exception) {
+            Log.e("DoctorRepository", "Ошибка загрузки пациентов: ${e.message}")
+            emptyList()
+        }
     }
 
     suspend fun getPatientById(id: Int): Patient? {
-        delay(500)
-        // TODO: GET /api/patients/{id}
-        return mockPatients.find { it.id == id }
+        return try {
+            val patientDto = RetrofitClient.doctorApi.getPatientById(id)
+            patientDto.toDomain()
+        } catch (e: Exception) {
+            Log.e("DoctorRepository", "Ошибка загрузки профиля пациента: ${e.message}")
+            null
+        }
     }
 
     suspend fun createPatient(
-        doctorId: Int,
         firstName: String,
         lastName: String,
-        birthDate: Date,
+        birthDateStr: String,
         email: String,
+        password: String, //хз...
         gender: Gender,
         allergies: List<String>,
         diseases: List<String>
     ): Patient {
-        delay(400)
-        // TODO: POST /api/patients
 
-        val newId = (mockPatients.maxOfOrNull { it.id } ?: 0) + 1
-        val newUser = authRepository.register(email, UserRole.PATIENT)
-
-        val newPatient = Patient(
-            id = newId,
-            userId = newUser.id,
-            doctorId = doctorId,
+        val requestBody = CreatePatientRequestDto(
             firstName = firstName,
             lastName = lastName,
-            birthDate = birthDate,
             email = email,
-            gender = gender,
+            password = password,
+            birthDateStr = birthDateStr,
+            gender = gender.name,
             allergies = allergies,
             chronicDiseases = diseases
         )
 
+        val patientDto = RetrofitClient.doctorApi.createPatient(requestBody)
 
-        mockPatients.add(newPatient)
-        Log.d("TAG", mockPatients.toString())
-        return newPatient
+        Log.d("DoctorRepository", "Пациент успешно создан! ID: ${patientDto.id}")
+        return patientDto.toDomain()
     }
 
     suspend fun getPrescriptionsByPatient(patientId: Int): List<Prescription> {
-        delay(1000)
-        // TODO: GET /api/patients/{id}/prescriptions
-        return mockPrescriptions.filter { it.patientId == patientId }
+        return try {
+            val prescriptionDtos = RetrofitClient.doctorApi.getPatientPrescriptions(patientId)
+            prescriptionDtos.map { it.toDomain() }
+        } catch (e: Exception) {
+            Log.e("DoctorRepository", "Ошибка загрузки рецептов: ${e.message}")
+            emptyList()
+        }
     }
 
     suspend fun searchMedicines(query: String): List<Medicine> {
-        delay(150)
-        // TODO: GET /api/medicines?search={query}
-        return if (query.isEmpty()) {
-            mockMedicines
-        } else {
-            mockMedicines.filter {
-                it.name.contains(query, ignoreCase = true)
-            }
+//        if (query.isEmpty()) return emptyList()
+//        val medicineDto = RetrofitClient.doctorApi.searchMedicines(query)
+//        return medicineDto.map { it.toDomain() }
+        return try {
+            val medicineDtos = RetrofitClient.doctorApi.searchMedicines(query)
+            medicineDtos.map { it.toDomain() }
+        } catch (e: Exception) {
+            Log.e("DoctorRepository", "Ошибка поиска лекарств: ${e.message}")
+            emptyList()
         }
     }
 
     suspend fun createPrescription(
-        doctorId: Int,
         patientId: Int,
         medicineId: Int,
         dosage: String,
@@ -96,30 +130,20 @@ class DoctorRepository {
         durationDays: Int,
         notes: String
     ): Prescription {
-        delay(400)
-        // TODO: POST /api/prescriptions
 
-        val medicine = mockMedicines.find { it.id == medicineId }
-            ?: throw IllegalArgumentException("Medicine not found")
-
-        val startDate = Date()
-        val formattedStartDate = formatDate(startDate)
-        val prescription = Prescription(
-            id = mockPrescriptions.size + 1,
-            doctorId = doctorId,
+        val requestBody = CreatePrescriptionRequestDto(
             patientId = patientId,
-            medicine = medicine,
+            medicineId = medicineId,
             dosage = dosage,
             frequency = frequency,
             durationDays = durationDays,
-            startDate = formattedStartDate,
-            endDate = formatDate(addDays(startDate, durationDays)),
-            status = PrescriptionStatus.ACTIVE,
             notes = notes
         )
 
-        mockPrescriptions.add(prescription)
-        return prescription
+        val prescriptionDto = RetrofitClient.doctorApi.createPrescription(requestBody)
+
+        Log.d("DoctorRepository", "Рецепт успешно создан! ID: ${prescriptionDto.id}")
+        return prescriptionDto.toDomain()
     }
 
     fun getDoctorById(doctorId: Int): Doctor? {
@@ -128,28 +152,9 @@ class DoctorRepository {
 
 
     suspend fun incrementTakenCount(prescriptionId: Int) {
-        delay(100)
-        val current = mockLogs.getOrDefault(prescriptionId, 0) + 1
-        mockLogs[prescriptionId] = current
-
-        val index = mockPrescriptions.indexOfFirst { it.id == prescriptionId }
-        if (index != -1) {
-            val prescription = mockPrescriptions[index]
-
-            if (current >= prescription.totalDoses) {
-
-                val completedPrescription = prescription.copy(
-                    status = PrescriptionStatus.COMPLETED
-                )
-
-                mockPrescriptions[index] = completedPrescription
-            }
-        }
+        RetrofitClient.patientApi.markAsTaken(prescriptionId)
     }
 
-    fun getTakenCount(prescriptionId: Int): Int {
-        return mockLogs.getOrDefault(prescriptionId, 0)
-    }
 
 
     companion object {
@@ -161,45 +166,6 @@ class DoctorRepository {
             Medicine(3, "Парацетамол", MedicineForm.SYRUP, "120 мг/5мл"),
             Medicine(4, "Цефтриаксон", MedicineForm.INJECTION, "1 г"),
             Medicine(5, "Левомеколь", MedicineForm.OINTMENT, "40 г")
-        )
-
-        private val mockPatients = mutableListOf(
-            Patient(
-                id = 1, //patientId
-                userId = 102,
-                doctorId = 1,
-                firstName = "Иван",
-                lastName = "Петров",
-                birthDate = createDate(1985, 5, 15),
-                gender = Gender.MALE,
-                email = "test@gmail.com",
-                allergies = listOf("Пенициллин"),
-                chronicDiseases = listOf("Астма")
-            ),
-            Patient(
-                id = 2, //patientId
-                userId = 103,
-                doctorId = 1,
-                firstName = "Мария",
-                lastName = "Сидорова",
-                birthDate = createDate(1990, 8, 22),
-                gender = Gender.FEMALE,
-                email = "test2@gmail.com",
-                allergies = emptyList(),
-                chronicDiseases = listOf("Гипертония")
-            ),
-            Patient(
-                id = 3, //patientId
-                userId = 104,
-                doctorId = 2,
-                firstName = "Алексей",
-                lastName = "Смирнов",
-                birthDate = createDate(2000, 3, 10),
-                gender = Gender.MALE,
-                email = "test3@gmail.com",
-                allergies = listOf("Арахис", "Лактоза"),
-                chronicDiseases = emptyList()
-            )
         )
 
         private val mockPrescriptions = mutableListOf(
@@ -250,7 +216,6 @@ class DoctorRepository {
         private val mockDoctors = listOf<Doctor>(
             Doctor(
                 id = 1, //doctorId
-                userId = 101,
                 firstName = "Mikhail",
                 lastName = "Zadornov",
                 specialization = "Dentist",
@@ -258,7 +223,6 @@ class DoctorRepository {
             ),
             Doctor(
                 id = 2, //doctorId
-                userId = 105,
                 firstName = "Alexey",
                 lastName = "Shevcov",
                 specialization = "Cardiolog",
@@ -267,6 +231,19 @@ class DoctorRepository {
 
         )
 
+
+        fun parseDateString(input: String): String {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd")
+            val outputFormat = SimpleDateFormat("dd.MM.yyyy")
+            val date = inputFormat.parse(input)
+            val outputDate = outputFormat.format(date!!)
+            return outputDate
+        }
+
+        fun createDateByString(input: String): Date {
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            return formatter.parse(input)!!
+        }
 
         //utils
         fun createDate(year: Int, month: Int, day: Int): Date {

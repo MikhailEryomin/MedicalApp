@@ -55,7 +55,7 @@ class PatientDetailsViewModel: ViewModel() {
                 val prescriptions = repository.getPrescriptionsByPatient(patientId)
                 _prescriptions.value = prescriptions
             } catch (e: Exception) {
-                // Обработка сетевых ошибок
+                Log.e("TAG", e.message.toString())
             } finally {
                 _isPrescriptionsLoading.value = false
             }

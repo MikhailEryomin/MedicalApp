@@ -19,7 +19,9 @@ data class Prescription(
     val endDate: String,
 
     val status: PrescriptionStatus,
-    val notes: String = ""
+    val notes: String = "",
+
+    val takenCount: Int = 0
 ) {
     val totalDoses: Int
         get() = frequency * durationDays

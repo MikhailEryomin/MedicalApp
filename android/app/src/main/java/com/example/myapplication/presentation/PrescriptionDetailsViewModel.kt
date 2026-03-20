@@ -24,8 +24,7 @@ class PrescriptionDetailsViewModel: ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val currentUser = SessionManager.currentUser ?: return@launch
-                val patientProfile = repository.getPatientProfile(currentUser.id)
+                val patientProfile = repository.getPatientProfile()
 
                 if (patientProfile == null) {
                     Log.d("TAG", "PatientProfile is not found!")
@@ -39,7 +38,7 @@ class PrescriptionDetailsViewModel: ViewModel() {
                     return@launch
                 }
 
-                val taken = repository.getTakenCount(prescription.id)
+                val taken = prescription.takenCount
                 val total = prescription.totalDoses
                 val percent = if (total > 0) (taken * 100) / total else 0
                 val doctor = repository.getDoctorById(prescription.doctorId)

@@ -8,7 +8,7 @@
     <!-- 1. Экран авторизации -->
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.myapplication.presentation.LoginFragment"
+        android:name="com.example.myapplication.presentation.AuthFragment"
         android:label="Authorization"
         tools:layout="@layout/fragment_login">
 
