@@ -57,7 +57,4 @@ class PatientRepository {
         return doctorRepo.getPatientProfile(userId)
     }
 
-    suspend fun getDoctorProfile(userId: Int): Doctor? {
-        return doctorRepo.getDoctorProfile(userId)
-    }
 }

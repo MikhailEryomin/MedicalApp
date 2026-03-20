@@ -116,7 +116,8 @@ class CreatePatientFragment: Fragment() {
             val lastName = binding.etLastName.text.toString()
             val birthDate = binding.etDob.text.toString()
             val email = binding.etPatientEmail.text.toString()
-            viewModel.createPatient(firstName, lastName, birthDate, email)
+            val password = binding.etPatientPassword.text.toString()
+            viewModel.createPatient(firstName, lastName, birthDate, email, password)
         }
     }
 

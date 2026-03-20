@@ -3,6 +3,7 @@ package com.example.myapplication.presentation
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,14 @@ class CreatePrescriptionFragment: Fragment() {
         viewModel.duration.observe(this) {
             binding.tvDuration.text = it.toString()
         }
+
+        viewModel.errorMessage.observe(this) {
+            if (it != null) {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                Log.e("TAG", it)
+            }
+        }
+
         viewModel.isLoading.observe(this) { isLoading ->
             if (isLoading) {
                 binding.btnPrescribe.isEnabled = false

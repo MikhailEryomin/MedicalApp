@@ -196,11 +196,27 @@
                     </LinearLayout>
 
 
+                    <!-- Email -->
                     <TextView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Required for patient login"
-                        android:textColor="@color/text_hint" android:textSize="12sp"
-                        android:layout_marginTop="4dp" android:layout_marginStart="4dp"/>
+                        android:text="Password *"
+                        style="@style/MedicalApp"
+                        android:layout_marginTop="12dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_rounded_border"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp">
+                        <ImageView
+                            android:layout_width="24dp" android:layout_height="24dp"
+                            android:src="@drawable/bg_schedule_taken" app:tint="@color/icon_gray"/>
+                        <EditText
+                            android:id="@+id/etPatientPassword"
+                            android:layout_width="match_parent" android:layout_height="match_parent"
+                            android:background="@null" android:hint="Enter password here"
+                            android:inputType="textPassword"
+                            android:paddingStart="12dp" android:textColor="@color/text_primary"/>
+                    </LinearLayout>
 
 
                     <!-- Секция: Медицинская информация -->

@@ -2,12 +2,13 @@ package com.example.myapplication.domain
 
 data class User (
     val id: Int,
+    val userId: Int = 0,
     val email: String,
     val role: UserRole,
-    val token: String = "" // для будущего API
+    val token: String = ""
 )
 
-enum class UserRole {
+enum class UserRole() {
     DOCTOR,
     PATIENT
 }

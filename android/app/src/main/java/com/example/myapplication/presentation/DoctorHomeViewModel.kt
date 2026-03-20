@@ -22,19 +22,9 @@ class DoctorHomeViewModel: ViewModel() {
     }
 
     fun loadMyPatients() {
-
-        val userId = SessionManager.currentUser?.id ?: return
-
         viewModelScope.launch {
-            try {
-                val doctor = repository.getDoctorProfile(userId)
-                if (doctor != null) {
-                    allPatients = repository.getPatientsForDoctor(doctor.id)
-                    _patients.value = allPatients
-                }
-            } catch (e: Exception) {
-                // Обработка ошибок
-            }
+            allPatients = repository.getPatientsForDoctor()
+            _patients.value = allPatients
         }
     }
 
