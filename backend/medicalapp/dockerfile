@@ -1,0 +1,31 @@
+FROM eclipse-temurin:17-jdk-alpine AS build
+
+WORKDIR /app
+
+# Копируем gradle wrapper и конфиги
+COPY gradlew .
+COPY gradle ./gradle
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+
+# Делаем gradlew исполняемым
+RUN chmod +x gradlew
+
+# Скачиваем зависимости (кэшируется отдельным слоем)
+RUN ./gradlew dependencies --no-daemon || true
+
+# Копируем исходники
+COPY src ./src
+
+# Собираем
+RUN ./gradlew bootJar --no-daemon -x test
+
+# ---- Runtime ----
+FROM eclipse-temurin:17-jre-alpine
+
+WORKDIR /app
+COPY --from=build /app/build/libs/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
