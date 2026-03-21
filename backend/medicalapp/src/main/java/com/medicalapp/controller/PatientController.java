@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -37,6 +38,16 @@ public class PatientController {
             @AuthenticationPrincipal UserPrincipal principal) {
         User currentUser = userService.getCurrentUser(principal);
         return ResponseEntity.ok(patientService.getPatientDetail(patientId, currentUser));
+    }
+
+    @GetMapping("/api/patients")
+    public ResponseEntity<List<PatientListItem>> getAllPatientsGlobal(
+            @RequestParam(required = false, defaultValue = "") String search,
+            @RequestParam(required = false, defaultValue = "200") int limit,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        userService.getCurrentDoctor(principal);
+        return ResponseEntity.ok(patientService.getAllPatientsGlobal(search, limit));
     }
 
     @PostMapping("/api/patients")

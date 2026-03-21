@@ -1,4 +1,3 @@
-// src/main/java/com/medicalapp/service/PatientService.java
 package com.medicalapp.service;
 
 import com.medicalapp.dto.CreatePatientRequest;
@@ -14,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,29 @@ public class PatientService {
     private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Transactional(readOnly = true)
+    public List<PatientListItem> getAllPatientsGlobal(String search, int limit) {
+        int safeLimit = Math.min(Math.max(limit, 1), 500);
+
+        Pageable pageable = PageRequest.of(
+                0,
+                safeLimit,
+                Sort.by(Sort.Direction.ASC, "lastName", "firstName", "id")
+        );
+
+        var page = patientRepository.searchAllPatients(search, pageable);
+
+        return page.getContent().stream()
+                .map(p -> PatientListItem.builder()
+                        .id(p.getId())
+                        .firstName(p.getFirstName())
+                        .lastName(p.getLastName())
+                        .birthDate(p.getBirthDate())
+                        .gender(p.getGender() != null ? p.getGender().name() : null)
+                        .build())
+                .toList();
+    }
 
     @Transactional(readOnly = true)
     public List<PatientListItem> getMyPatients(Doctor doctor) {
