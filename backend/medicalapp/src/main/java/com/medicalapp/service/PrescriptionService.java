@@ -40,11 +40,13 @@ public class PrescriptionService {
     private PrescriptionResponse toResponse(Prescription p) {
         int takenCount = getTakenCount(p.getId());
         int totalCount = p.getFrequency() * p.getDurationDays();
+        Doctor d = p.getDoctor();
         String medicineName = p.getMedicine() != null ? p.getMedicine().getName() : null;
-
         return PrescriptionResponse.builder()
                 .id(p.getId())
                 .doctorId(p.getDoctor().getId())
+                .doctorFirstName(d.getFirstName())
+                .doctorLastName(d.getLastName())
                 .patientId(p.getPatient().getId())
                 .medicineId(p.getMedicine().getId())
                 .medicineName(medicineName)

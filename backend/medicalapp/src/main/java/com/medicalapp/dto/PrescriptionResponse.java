@@ -10,6 +10,8 @@ import java.time.LocalDate;
 public class PrescriptionResponse {
     private Integer id;
     private Integer doctorId;
+    private String doctorFirstName;
+    private String doctorLastName;
     private Integer patientId;
     private Integer medicineId;
     private String medicineName;

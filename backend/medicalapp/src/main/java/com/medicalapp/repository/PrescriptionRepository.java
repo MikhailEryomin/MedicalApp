@@ -9,9 +9,20 @@ import java.util.Optional;
 
 public interface PrescriptionRepository extends JpaRepository<Prescription, Integer> {
 
-    @Query("SELECT p FROM Prescription p JOIN FETCH p.medicine WHERE p.patient.id = :patientId ORDER BY p.startDate DESC")
+    @Query("""
+        SELECT p FROM Prescription p
+        JOIN FETCH p.medicine
+        JOIN FETCH p.doctor
+        WHERE p.patient.id = :patientId
+        ORDER BY p.startDate DESC
+    """)
     List<Prescription> findByPatientIdWithMedicine(Integer patientId);
 
-    @Query("SELECT p FROM Prescription p JOIN FETCH p.medicine WHERE p.id = :id")
+    @Query("""
+        SELECT p FROM Prescription p
+        JOIN FETCH p.medicine
+        JOIN FETCH p.doctor
+        WHERE p.id = :id
+    """)
     Optional<Prescription> findByIdWithMedicine(Integer id);
 }
