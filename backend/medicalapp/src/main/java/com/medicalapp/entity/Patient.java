@@ -5,7 +5,8 @@ import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Type;
-
+import com.medicalapp.crypto.EncryptedStringListConverter;
+import jakarta.persistence.Convert;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +39,23 @@ public class Patient {
     @Column(columnDefinition = "gender")
     private Gender gender;
 
-    @Type(JsonType.class)
-    @Column(columnDefinition = "jsonb")
+//    @Type(JsonType.class)
+//    @Column(columnDefinition = "jsonb")
+//    @Builder.Default
+//    private List<String> allergies = new ArrayList<>();
+//
+//    @Type(JsonType.class)
+//    @Column(name = "chronic_diseases", columnDefinition = "jsonb")
+//    @Builder.Default
+//    private List<String> chronicDiseases = new ArrayList<>();
+
+    @Convert(converter = EncryptedStringListConverter.class)
+    @Column(columnDefinition = "TEXT")
     @Builder.Default
     private List<String> allergies = new ArrayList<>();
 
-    @Type(JsonType.class)
-    @Column(name = "chronic_diseases", columnDefinition = "jsonb")
+    @Convert(converter = EncryptedStringListConverter.class)
+    @Column(name = "chronic_diseases", columnDefinition = "TEXT")
     @Builder.Default
     private List<String> chronicDiseases = new ArrayList<>();
 

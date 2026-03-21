@@ -1,10 +1,10 @@
 package com.medicalapp.service;
 
-import com.medicalapp.dto.CreatePatientRequest;
+//import com.medicalapp.dto.CreatePatientRequest;
 import com.medicalapp.dto.PatientDetailResponse;
 import com.medicalapp.dto.PatientListItem;
 import com.medicalapp.entity.*;
-import com.medicalapp.entity.enums.Gender;
+//import com.medicalapp.entity.enums.Gender;
 import com.medicalapp.entity.enums.UserRole;
 import com.medicalapp.exception.AppException;
 import com.medicalapp.repository.*;
@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 public class PatientService {
 
     private final PatientRepository patientRepository;
-    private final UserRepository userRepository;
+//    private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<PatientListItem> getAllPatientsGlobal(String search, int limit) {
@@ -100,48 +100,10 @@ public class PatientService {
         return toDetailResponse(patient);
     }
 
-    @Transactional
-    public PatientDetailResponse createPatient(CreatePatientRequest request, Doctor doctor) {
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new AppException(HttpStatus.CONFLICT, "Email already registered");
-        }
-
-        Gender genderEnum = null;
-        if (request.getGender() != null && !request.getGender().isEmpty()) {
-            try {
-                genderEnum = Gender.valueOf(request.getGender());
-            } catch (IllegalArgumentException e) {
-                throw new AppException(HttpStatus.BAD_REQUEST, "Invalid gender. Use MALE or FEMALE.");
-            }
-        }
-
-        User user = User.builder()
-                .email(request.getEmail())
-                .passwordHash(passwordEncoder.encode(request.getPassword()))
-                .role(UserRole.PATIENT)
-                .build();
-        userRepository.save(user);
-
-        Patient patient = Patient.builder()
-                .user(user)
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .birthDate(request.getBirthDate())
-                .gender(genderEnum)
-                .allergies(request.getAllergies() != null ? request.getAllergies() : new ArrayList<>())
-                .chronicDiseases(request.getChronicDiseases() != null ? request.getChronicDiseases() : new ArrayList<>())
-                .build();
-        patientRepository.save(patient);
-
-        doctor.getPatients().add(patient);
-        doctorRepository.save(doctor);
-
-        return toDetailResponse(patient);
-    }
-
     private PatientDetailResponse toDetailResponse(Patient p) {
         return PatientDetailResponse.builder()
                 .id(p.getId())
+                .email(p.getUser() != null ? p.getUser().getEmail() : null)
                 .firstName(p.getFirstName())
                 .lastName(p.getLastName())
                 .birthDate(p.getBirthDate())

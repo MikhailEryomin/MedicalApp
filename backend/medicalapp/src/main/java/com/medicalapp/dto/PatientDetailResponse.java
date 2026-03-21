@@ -10,6 +10,7 @@ import java.util.List;
 @Builder
 public class PatientDetailResponse {
     private Integer id;
+    private String email;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;

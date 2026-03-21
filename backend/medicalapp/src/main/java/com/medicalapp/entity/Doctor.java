@@ -2,7 +2,8 @@ package com.medicalapp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import com.medicalapp.crypto.EncryptedStringConverter;
+import jakarta.persistence.Convert;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,10 @@ public class Doctor {
     @Column(length = 200)
     private String specialization;
 
-    @Column(name = "licence_number", length = 100)
+//    @Column(name = "licence_number", length = 100)
+//    private String licenceNumber;
+    @Convert(converter = EncryptedStringConverter.class)
+    @Column(name = "licence_number", columnDefinition = "TEXT")
     private String licenceNumber;
 
     @ManyToMany

@@ -32,13 +32,13 @@ public class AuthController {
         return ResponseEntity.ok(authService.registerDoctor(request));
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<TokenResponse> registerPatientByDoctor(
-            @Valid @RequestBody RegisterPatientByDoctorRequest request,
-            @AuthenticationPrincipal UserPrincipal principal) {
-        Doctor doctor = userService.getCurrentDoctor(principal);
-        return ResponseEntity.ok(authService.registerPatientByDoctor(request, doctor));
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<TokenResponse> registerPatientByDoctor(
+//            @Valid @RequestBody RegisterPatientByDoctorRequest request,
+//            @AuthenticationPrincipal UserPrincipal principal) {
+//        Doctor doctor = userService.getCurrentDoctor(principal);
+//        return ResponseEntity.ok(authService.registerPatientByDoctor(request, doctor));
+//    }
 
     @PostMapping("/register/patient")
     public ResponseEntity<TokenResponse> registerPatient(@Valid @RequestBody RegisterPatientRequest request) {

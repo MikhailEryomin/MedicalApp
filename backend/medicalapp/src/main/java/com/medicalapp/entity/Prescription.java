@@ -3,7 +3,8 @@ package com.medicalapp.entity;
 import com.medicalapp.entity.enums.PrescriptionStatus;
 import jakarta.persistence.*;
 import lombok.*;
-
+import com.medicalapp.crypto.EncryptedStringConverter;
+import jakarta.persistence.Convert;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,10 @@ public class Prescription {
     @Column(nullable = false, columnDefinition = "prescription_status")
     private PrescriptionStatus status;
 
+//    @Column(columnDefinition = "TEXT")
+//    private String notes;
+
+    @Convert(converter = EncryptedStringConverter.class)
     @Column(columnDefinition = "TEXT")
     private String notes;
 

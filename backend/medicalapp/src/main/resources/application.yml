@@ -24,6 +24,9 @@ app:
     secret: ${JWT_SECRET_KEY:super-secret-key-change-in-production}
     algorithm: HS256
     expiration-minutes: ${JWT_ACCESS_TOKEN_EXPIRE_MINUTES:1440}
+  crypto:
+    key: ${APP_CRYPTO_KEY:}
+    email-hmac-key: ${APP_EMAIL_HMAC_KEY:}
 
 springdoc:
   api-docs:

@@ -1,5 +1,5 @@
 package com.medicalapp.entity;
-
+import com.medicalapp.crypto.EncryptedStringConverter;
 import com.medicalapp.entity.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,8 +15,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, unique = true, length = 255)
+//    @Column(nullable = false, unique = true, length = 255)
+//    private String email;
+    @Convert(converter = EncryptedStringConverter.class)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String email;
+
+    @Column(name = "email_lookup", length = 64, nullable = true)
+    private String emailLookup;
 
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
