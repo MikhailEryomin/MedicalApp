@@ -8,7 +8,6 @@ data class Patient (
     val lastName: String,
     val birthDate: Date,
     val gender: Gender,
-    val email: String,
     val allergies: List<String> = emptyList(),
     val chronicDiseases: List<String> = emptyList()
 ) {

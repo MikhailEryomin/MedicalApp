@@ -40,7 +40,10 @@ class CreatePrescriptionViewModel: ViewModel() {
     }
 
     fun decFrequencyValue() {
-        _frequency.value = _frequency.value?.minus(1)
+        val curr = _frequency.value!!
+        if (curr > 0) {
+            _frequency.value = curr - 1
+        }
     }
 
     fun incDurationValue() {
@@ -48,7 +51,10 @@ class CreatePrescriptionViewModel: ViewModel() {
     }
 
     fun decDurationValue() {
-        _duration.value = _duration.value?.minus(1)
+        val curr = _duration.value!!
+        if (curr > 0) {
+            _duration.value = curr - 1
+        }
     }
 
     fun onSearchQueryChanged(query: String) {

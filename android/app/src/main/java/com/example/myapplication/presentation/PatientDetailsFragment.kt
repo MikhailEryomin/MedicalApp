@@ -100,7 +100,7 @@ class PatientDetailsFragment : Fragment() {
                 Gender.MALE -> "Мужской"
                 Gender.FEMALE -> "Женский"
             }
-            tvEmail.text = patient.email
+            //tvEmail.text = patient.email
 
             layoutAllergies.removeAllViews()
             layoutDiseases.removeAllViews()

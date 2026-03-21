@@ -1,5 +1,6 @@
 package com.example.myapplication.presentation
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +14,6 @@ import kotlinx.coroutines.launch
 class PatientDetailsViewModel: ViewModel() {
 
     private val repository = DoctorRepository()
-    private var patientId: Int = 0
 
     private val _patient = MutableLiveData<Patient>()
     val patient: LiveData<Patient> = _patient
@@ -28,6 +28,7 @@ class PatientDetailsViewModel: ViewModel() {
     val isPrescriptionsLoading: LiveData<Boolean> = _isPrescriptionsLoading
 
 
+    @SuppressLint("NullSafeMutableLiveData")
     fun loadPatient(patientId: Int) {
         viewModelScope.launch {
             _isGeneralLoading.value = true
@@ -39,6 +40,7 @@ class PatientDetailsViewModel: ViewModel() {
                     return@launch
                 }
 
+                Log.d("TAG", patientData.toString())
                 _patient.value = patientData
             } catch (e: Exception) {
                 // Обработка сетевых ошибок

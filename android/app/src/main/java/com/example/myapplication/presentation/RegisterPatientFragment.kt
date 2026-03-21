@@ -6,26 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentCreatePatientBinding
-import com.example.myapplication.databinding.FragmentProfileBinding
+import com.example.myapplication.databinding.FragmentRegisterPatientBinding
 import com.example.myapplication.domain.Gender
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
-class CreatePatientFragment: Fragment() {
+class RegisterPatientFragment: Fragment() {
 
-    private var _binding: FragmentCreatePatientBinding? = null
+    private var _binding: FragmentRegisterPatientBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("There is no binding")
-    private lateinit var viewModel: CreatePatientViewModel
+    private lateinit var viewModel: RegisterPatientViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[CreatePatientViewModel::class.java]
+        viewModel = ViewModelProvider(this)[RegisterPatientViewModel::class.java]
         observeViewModel()
     }
 
@@ -34,7 +32,7 @@ class CreatePatientFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCreatePatientBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterPatientBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -54,9 +52,7 @@ class CreatePatientFragment: Fragment() {
         }
         viewModel.isSuccess.observe(this) {
             if (it) {
-                Toast.makeText(requireContext(), "Success!", Toast.LENGTH_SHORT).show()
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("refresh_patients", true)
-                findNavController().popBackStack()
+                findNavController().navigate(R.id.action_createPatientFragment_to_patientHomeFragment)
             }
         }
         viewModel.errorMessage.observe(this) { msg ->
@@ -92,7 +88,7 @@ class CreatePatientFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnCreatePatient.setOnClickListener {
-            findNavController().navigate(R.id.action_createPatientFragment_to_doctorHomeFragment)
+            findNavController().navigate(R.id.action_createPatientFragment_to_patientHomeFragment)
         }
 
         binding.btnBackAddPatient.setOnClickListener {

@@ -1,10 +1,12 @@
 package com.example.myapplication.domain
 
-import java.util.Date
-
 data class Prescription(
     val id: Int,
     val doctorId: Int,
+
+    val doctorFirstName: String,
+    val doctorLastName: String,
+
     val patientId: Int,
 
     val medicine: Medicine,

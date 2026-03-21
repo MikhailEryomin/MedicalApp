@@ -2,6 +2,7 @@ package com.example.myapplication.data
 
 import android.util.Log
 import com.example.myapplication.data.network.RetrofitClient
+import com.example.myapplication.data.network.dto.RegisterPatientDto
 import com.example.myapplication.data.network.dto.toDomain
 import com.example.myapplication.domain.User
 import com.example.myapplication.domain.UserRole
@@ -30,16 +31,53 @@ class AuthRepository {
         }
     }
 
-    suspend fun register(email: String, role: UserRole): User {
-        delay(500)
-        // TODO: Когда будет API - POST /auth/register
-        val newId = (mockUsers.maxOfOrNull { it.id } ?: 0).plus(1)
-        val newUser = User(id = newId, email = email, role = role)
-        mockUsers.add(newUser)
-        mockPasswords[newUser.email] = HARDCODED_STANDARD_PASSWORD
-        Log.d("TAG", mockUsers.toString())
-        Log.d("TAG","Success new user added!")
-        return newUser
+    suspend fun registerPatient(
+        firstName: String,
+        lastName: String,
+        birthDate: String,
+        gender: String,
+        email: String,
+        password: String,
+        allergies: List<String>,
+        diseases: List<String>
+    ): Result<User> {
+        return try {
+
+            val birthDateForServer = try {
+                val inputFormat = java.text.SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault())
+                val outputFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+                val date = inputFormat.parse(birthDate)
+                if (date != null) outputFormat.format(date) else ""
+            } catch (e: Exception) { "" }
+
+            // 2. Собираем DTO
+            val requestBody = RegisterPatientDto(
+                firstName = firstName,
+                lastName = lastName,
+                birthDate = birthDateForServer,
+                gender = gender,
+                email = email,
+                password = password,
+                allergies = allergies,
+                diseases = diseases
+            )
+
+            val responseDto = RetrofitClient.authApi.registerPatient(requestBody)
+
+            val user = User(
+                id = responseDto.user.id,
+                email = email,
+                role = UserRole.PATIENT,
+                token = responseDto.token
+            )
+
+            Log.d("AuthRepository", "Успешная регистрация пациента!")
+            Result.success(user)
+
+        } catch (e: Exception) {
+            Log.e("AuthRepository", "Ошибка регистрации: ${e.message}")
+            Result.failure(Exception("Registration failed. Email might be already in use."))
+        }
     }
 
     fun logout() {

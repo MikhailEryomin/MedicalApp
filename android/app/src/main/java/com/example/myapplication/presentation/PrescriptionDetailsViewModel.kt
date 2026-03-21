@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.PatientRepository
-import com.example.myapplication.domain.Prescription
 import com.example.myapplication.domain.PrescriptionUiModel
 import kotlinx.coroutines.launch
 
@@ -24,14 +23,8 @@ class PrescriptionDetailsViewModel: ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val patientProfile = repository.getPatientProfile()
 
-                if (patientProfile == null) {
-                    Log.d("TAG", "PatientProfile is not found!")
-                    return@launch
-                }
-
-                val prescription = repository.getPrescriptionById(patientId = patientProfile.id, prescriptionId)
+                val prescription = repository.getMyPrescriptionById(prescriptionId)
 
                 if (prescription == null) {
                     Log.d("TAG", "Prescription is not found!")
@@ -41,10 +34,8 @@ class PrescriptionDetailsViewModel: ViewModel() {
                 val taken = prescription.takenCount
                 val total = prescription.totalDoses
                 val percent = if (total > 0) (taken * 100) / total else 0
-                val doctor = repository.getDoctorById(prescription.doctorId)
-
-                val doctorName =
-                    if (doctor != null) "${doctor.firstName} ${doctor.lastName}" else ""
+                val doctorFirstName = prescription.doctorFirstName
+                val doctorLastName = prescription.doctorLastName
 
                 val uiModel = PrescriptionUiModel(
                     prescription = prescription,
@@ -52,7 +43,7 @@ class PrescriptionDetailsViewModel: ViewModel() {
                     totalCount = total,
                     progressPercent = percent,
                     isCompleted = taken >= total,
-                    doctorName = doctorName
+                    doctorName = "$doctorFirstName $doctorLastName"
                 )
 
                 _uiState.value = uiModel

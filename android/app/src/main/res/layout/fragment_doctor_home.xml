@@ -76,7 +76,41 @@
                 android:maxLines="1"
                 android:inputType="text" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_tab_container"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/tabMyPatients"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_tab_selected"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="My Patients"
+                android:textColor="@color/text_primary" />
+
+            <TextView
+                android:id="@+id/tabGlobalSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_tab_unselected"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="All Patients"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+
     </LinearLayout>
+
+
 
     <!-- LIST (RecyclerView) -->
     <!-- Это контейнер для списка пациентов -->

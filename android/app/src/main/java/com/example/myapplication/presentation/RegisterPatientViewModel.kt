@@ -1,19 +1,19 @@
 package com.example.myapplication.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.data.AuthRepository
 import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.domain.Gender
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class CreatePatientViewModel : ViewModel() {
+class RegisterPatientViewModel : ViewModel() {
 
-    private val doctorRepository = DoctorRepository()
+    private val authRepository = AuthRepository()
 
     private val _selectedGender = MutableLiveData(Gender.MALE)
     val selectedGender: LiveData<Gender> = _selectedGender
@@ -78,37 +78,33 @@ class CreatePatientViewModel : ViewModel() {
         password: String
     ) {
 
-        if (!validateInput(firstName, lastName, birthDate, email)) return
+        if (!validateInput(firstName, lastName, birthDate, email, password)) return
 
         viewModelScope.launch {
             _isLoading.value = true
             try {
-
-                val inputFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-                val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                val date = inputFormat.parse(birthDate)
-                val birthDateForServer = if (date != null) outputFormat.format(date) else ""
-
-                doctorRepository.createPatient(
+                // Вызываем новый метод из AuthRepository
+                val result = authRepository.registerPatient(
                     firstName = firstName,
                     lastName = lastName,
-                    birthDateStr = birthDateForServer,
+                    birthDate = birthDate,
+                    gender = selectedGender.value!!.name, // "MALE" или "FEMALE"
                     email = email,
                     password = password,
-                    gender = selectedGender.value!!,
                     allergies = _allergies.value.orEmpty(),
                     diseases = _diseases.value.orEmpty()
                 )
 
-                _isSuccess.value = true
-
-            } catch (e: Exception) {
-                _errorMessage.value = "Error: ${e.message}"
+                result.onSuccess { user ->
+                    SessionManager.saveUser(user) // Сразу логиним пользователя!
+                    _isSuccess.value = true
+                }.onFailure { error ->
+                    _errorMessage.value = error.message
+                }
             } finally {
                 _isLoading.value = false
             }
         }
-
     }
 
     fun clearError() {
@@ -119,7 +115,8 @@ class CreatePatientViewModel : ViewModel() {
         firstName: String,
         lastName: String,
         birthDate: String,
-        email: String
+        email: String,
+        password: String
     ): Boolean {
         if (firstName.isBlank() || lastName.isBlank()) {
             _errorMessage.value = "Please enter first name and last name"
@@ -133,6 +130,10 @@ class CreatePatientViewModel : ViewModel() {
         val regex = "[a-zA-Z]+\\d*@[a-zA-Z]+\\.[a-z]+".toRegex()
         if (email.isBlank() || !email.matches(regex)) {
             _errorMessage.value = "Please enter a valid email"
+            return false
+        }
+        if (password.length < 6) {
+            _errorMessage.value = "Password must be at least 6 characters"
             return false
         }
         return true

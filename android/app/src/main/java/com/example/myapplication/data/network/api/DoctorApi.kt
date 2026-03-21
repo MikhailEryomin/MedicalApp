@@ -27,6 +27,15 @@ interface DoctorApi {
     @POST("api/prescriptions")
     suspend fun createPrescription(@Body request: CreatePrescriptionRequestDto): PrescriptionDto
 
+    @GET("api/patients")
+    suspend fun searchAllPatients(
+        @Query("search") query: String,
+        @Query("limit") limit: Int = 200
+    ): List<PatientDto>
+
+    @POST("api/doctors/me/patients/{patientId}")
+    suspend fun attachPatient(@Path("patientId") patientId: Int)
+
     @POST("api/patients")
     suspend fun createPatient(@Body request: CreatePatientRequestDto): PatientDto
 }

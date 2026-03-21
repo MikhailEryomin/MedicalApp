@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,12 +22,14 @@ class DoctorHomeFragment: Fragment() {
     private val binding get() = _binding ?: throw IllegalStateException("There is no binding")
     private lateinit var viewModel: DoctorHomeViewModel
 
-    private val adapter = PatientListAdapter(
-        onItemClick = {patient ->
-            val action = DoctorHomeFragmentDirections.actionDoctorHomeToPatientDetails(patient.id)
-            findNavController().navigate(action)
-        }
-    )
+    private val adapter = PatientListAdapter { patient ->
+        val action = DoctorHomeFragmentDirections.actionDoctorHomeToPatientDetails(patient.id)
+        findNavController().navigate(action)
+    }
+
+    private val globalAdapter = GlobalPatientAdapter { patient ->
+        viewModel.attachPatient(patient.id)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +38,24 @@ class DoctorHomeFragment: Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.patients.observe(this) {
-            adapter.submitList(it)
+        viewModel.displayedPatients.observe(this) { patients ->
+            if (binding.rvPatients.adapter == adapter) {
+                adapter.submitList(patients)
+            } else {
+                globalAdapter.submitList(patients)
+            }
+        }
+
+        viewModel.currentTab.observe(this) { tab ->
+            if (tab == DoctorHomeTab.MY_PATIENTS) {
+                binding.tabMyPatients.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_selected)
+                binding.tabGlobalSearch.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_unselected)
+                binding.rvPatients.adapter = adapter
+            } else {
+                binding.tabGlobalSearch.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_selected)
+                binding.tabMyPatients.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_unselected)
+                binding.rvPatients.adapter = globalAdapter
+            }
         }
     }
 
@@ -50,6 +70,18 @@ class DoctorHomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.tabMyPatients.setOnClickListener {
+            viewModel.setTab(DoctorHomeTab.MY_PATIENTS, binding.etSearch.text.toString())
+        }
+        binding.tabGlobalSearch.setOnClickListener {
+            viewModel.setTab(DoctorHomeTab.GLOBAL_SEARCH, binding.etSearch.text.toString())
+        }
+
+        binding.etSearch.addTextChangedListener { text ->
+            viewModel.onSearchQueryChanged(text.toString())
+        }
+
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("refresh_patients")?.observe(this) {
             if (it) {
                 viewModel.loadMyPatients()
@@ -64,34 +96,6 @@ class DoctorHomeFragment: Fragment() {
         binding.btnSettings.setOnClickListener {
             findNavController().navigate(R.id.action_doctorHome_to_profile)
         }
-
-        binding.fabAddPatient.setOnClickListener {
-            findNavController().navigate(R.id.action_doctorHome_to_createPatient)
-        }
-
-        binding.etSearch.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-
-            override fun beforeTextChanged(
-                p0: CharSequence?,
-                p1: Int,
-                p2: Int,
-                p3: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                p0: CharSequence?,
-                p1: Int,
-                p2: Int,
-                p3: Int
-            ) {
-                viewModel.searchPatients(p0.toString())
-            }
-
-        })
 
         //recycleView
         binding.rvPatients.adapter = adapter

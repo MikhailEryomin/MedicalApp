@@ -15,6 +15,27 @@ import java.util.Locale
 
 class DoctorRepository {
 
+    suspend fun searchGlobalPatients(query: String): List<Patient> {
+        return try {
+            val patientDtos = RetrofitClient.doctorApi.searchAllPatients(query)
+            patientDtos.map { it.toDomain() }
+        } catch (e: Exception) {
+            Log.e("DoctorRepository", "Ошибка глобального поиска: ${e.message}")
+            emptyList()
+        }
+    }
+
+    suspend fun attachPatientToDoctor(patientId: Int): Boolean {
+        return try {
+            RetrofitClient.doctorApi.attachPatient(patientId)
+            Log.d("DoctorRepository", "Пациент $patientId успешно прикреплен!")
+            true
+        } catch (e: Exception) {
+            Log.e("DoctorRepository", "Ошибка прикрепления: ${e.message}")
+            false
+        }
+    }
+
     suspend fun getPatientProfile(): Patient {
         val dto = RetrofitClient.authApi.getUserInfo()
         return Patient(
@@ -23,28 +44,20 @@ class DoctorRepository {
             lastName = dto.lastName,
             birthDate = createDateByString(dto.birthDate!!),
             gender = if(dto.gender == "MALE") Gender.MALE else Gender.FEMALE,
-            email = SessionManager.currentUser?.email ?: "",
             allergies = dto.allergies ?: emptyList(),
             chronicDiseases = dto.chronicDiseases ?: emptyList()
         )
     }
 
-    suspend fun getDoctorProfile(): Doctor? {
-        return try {
-            val dto = RetrofitClient.authApi.getUserInfo()
-            if (dto.role != UserRole.DOCTOR.name) return null
-            return Doctor(
-                id = dto.id,
-                firstName = dto.firstName,
-                lastName = dto.lastName,
-                specialization = dto.specialization ?: "",
-                licenceNumber = dto.licenceNumber ?: ""
-            )
-
-        } catch (e: Exception) {
-            Log.e("DoctorRepository", "Ошибка загрузки профиля: ${e.message}")
-            null
-        }
+    suspend fun getDoctorProfile(): Doctor {
+        val dto = RetrofitClient.authApi.getUserInfo()
+        return Doctor(
+            id = dto.id,
+            firstName = dto.firstName,
+            lastName = dto.lastName,
+            specialization = dto.specialization ?: "",
+            licenceNumber = dto.licenceNumber ?: ""
+        )
     }
 
     suspend fun getPatientsForDoctor(): List<Patient> {
@@ -131,9 +144,19 @@ class DoctorRepository {
         notes: String
     ): Prescription {
 
+        val doctorProfile = getDoctorProfile()
+        if (doctorProfile == null) {
+            Log.e("TAG", "Doctor is not found!")
+        }
+
+        val doctorFirstName = doctorProfile?.firstName ?: ""
+        val doctorLastName = doctorProfile?.lastName ?: ""
+
         val requestBody = CreatePrescriptionRequestDto(
             patientId = patientId,
             medicineId = medicineId,
+            doctorFirstName = doctorFirstName,
+            doctorLastName = doctorLastName,
             dosage = dosage,
             frequency = frequency,
             durationDays = durationDays,
@@ -167,51 +190,6 @@ class DoctorRepository {
             Medicine(4, "Цефтриаксон", MedicineForm.INJECTION, "1 г"),
             Medicine(5, "Левомеколь", MedicineForm.OINTMENT, "40 г")
         )
-
-        private val mockPrescriptions = mutableListOf(
-            Prescription(
-                id = 1,
-                doctorId = 1,
-                patientId = 1,
-                medicine = mockMedicines[0],
-                dosage = "400 мг",
-                frequency = 3,
-                durationDays = 7,
-                startDate = formatDate(Date()),
-                endDate = formatDate(addDays(Date(), 7)),
-                status = PrescriptionStatus.ACTIVE,
-                notes = "Принимать после еды"
-            ),
-            Prescription(
-                id = 2,
-                doctorId = 1,
-                patientId = 2,
-                medicine = mockMedicines[1],
-                dosage = "500 мг",
-                frequency = 2,
-                durationDays = 10,
-                startDate = formatDate(addDays(Date(), -15)),
-                endDate = formatDate(addDays(Date(), -5)),
-                status = PrescriptionStatus.COMPLETED,
-                notes = ""
-            ),
-            Prescription(
-                id = 3,
-                doctorId = 2,
-                patientId = 2,
-                medicine = mockMedicines[3],
-                dosage = "80 мг",
-                frequency = 4,
-                durationDays = 14,
-                startDate = formatDate(addDays(Date(), -2)),
-                endDate = formatDate(addDays(Date(), 5)),
-                status = PrescriptionStatus.ACTIVE,
-                notes = "Turip ip ip ip"
-            )
-
-        )
-
-        private val mockLogs = mutableMapOf<Int, Int>()
 
         private val mockDoctors = listOf<Doctor>(
             Doctor(

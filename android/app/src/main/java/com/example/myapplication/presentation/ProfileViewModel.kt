@@ -1,12 +1,12 @@
 package com.example.myapplication.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.domain.UserProfileUi
+import com.example.myapplication.domain.UserRole
 import com.example.myapplication.presentation.SessionManager.currentUser
 import kotlinx.coroutines.launch
 
@@ -31,20 +31,46 @@ class ProfileViewModel: ViewModel() {
 
     fun loadUser() {
         viewModelScope.launch {
-            val doctor = repository.getDoctorProfile()
-            if (doctor == null) {
-                Log.e("TAG", "Doctor is not found!")
-                return@launch
+            val currentUser = currentUser ?: return@launch
+
+            val profile = when (currentUser.role) {
+                UserRole.DOCTOR -> {
+                    val doctor = repository.getDoctorProfile()
+                    createUserProfile(
+                        firstName = doctor.firstName,
+                        lastName = doctor.lastName,
+                        email = currentUser.email,
+                        roleLabel = UserRole.DOCTOR.name
+                    )
+                }
+                else -> {
+                    val patient = repository.getPatientProfile()
+                    createUserProfile(
+                        firstName = patient.firstName,
+                        lastName = patient.lastName,
+                        email = currentUser.email,
+                        roleLabel = UserRole.PATIENT.name
+                    )
+                }
             }
 
-            _userProfile.value = UserProfileUi(
-                firstName = doctor.firstName,
-                lastName = doctor.lastName,
-                email = currentUser!!.email,
-                roleLabel = "Doctor",
-                initials = "${doctor.firstName.first()} ${doctor.lastName.first()}"
-            )
+            _userProfile.value = profile
         }
+    }
+
+    private fun createUserProfile(
+        firstName: String,
+        lastName: String,
+        email: String,
+        roleLabel: String
+    ): UserProfileUi {
+        return UserProfileUi(
+            firstName = firstName,
+            lastName = lastName,
+            email = email,
+            roleLabel = roleLabel,
+            initials = "${firstName.first()} ${lastName.first()}"
+        )
     }
 
 }

@@ -35,6 +35,13 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_createPatientFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/createPatientFragment" />
     </fragment>
 
     <!-- ================== FLOW ВРАЧА ================== -->
@@ -49,15 +56,6 @@
         <argument
             android:name="patientId"
             app:argType="integer"/>
-
-        <action
-            android:id="@+id/action_doctorHome_to_createPatient"
-            app:enterAnim="@anim/scale_in"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/scale_in"
-            app:popExitAnim="@anim/slide_out_right"
-            app:destination="@id/createPatientFragment"
-            app:popUpTo="@id/doctorHomeFragment" />
 
         <action
             android:id="@+id/action_doctorHome_to_patientDetails"
@@ -81,17 +79,16 @@
     <!-- 3. Создание пациента -->
     <fragment
         android:id="@+id/createPatientFragment"
-        android:name="com.example.myapplication.presentation.CreatePatientFragment"
+        android:name="com.example.myapplication.presentation.RegisterPatientFragment"
         android:label="New Patient"
-        tools:layout="@layout/fragment_create_patient" >
+        tools:layout="@layout/fragment_register_patient" >
         <action
-            android:id="@+id/action_createPatientFragment_to_doctorHomeFragment"
-            app:destination="@id/doctorHomeFragment"
+            android:id="@+id/action_createPatientFragment_to_patientHomeFragment"
             app:enterAnim="@anim/scale_in"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/scale_in"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/doctorHomeFragment" />
+            app:destination="@id/patientHomeFragment" />
     </fragment>
 
     <!-- 4. Карточка пациента (Детали) -->

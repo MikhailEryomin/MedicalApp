@@ -33,9 +33,7 @@ class PatientHomeViewModel : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val patientProfile = repository.getPatientProfile()
-
-                val prescriptions = repository.getMyPrescriptions(patientProfile!!.id)
+                val prescriptions = repository.getMyPrescriptions()
                 _isEmpty.value = prescriptions.isEmpty()
 
                 val uiModels = prescriptions.map { prescription ->

@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="New Patient"
+            android:text="Регистрация"
             android:textColor="@color/text_primary"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -333,39 +333,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- INFO CARD (Голубая) -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/bg_info_card"
-                android:orientation="horizontal"
-                android:padding="24dp">
-
-                <ImageView
-                    android:layout_width="24dp" android:layout_height="24dp"
-                    android:src="@drawable/ic_info" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="12dp">
-                    <TextView
-                        android:text="Access Data"
-                        android:textColor="@color/info_blue_text"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                    <TextView
-                        android:text="The system will generate a temporary password for the patient. They will be required to change it on first login."
-                        android:textColor="@color/info_blue_text"
-                        android:textSize="14sp"
-                        android:layout_marginTop="8dp"
-                        android:lineSpacingExtra="4dp"
-                        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </LinearLayout>
-
             <!-- Пустое пространство чтобы контент не скрылся за кнопкой -->
             <Space
                 android:layout_width="match_parent"
@@ -393,7 +360,7 @@
                 android:id="@+id/btnCreatePatient"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Create &amp; Print Access"
+                android:text="Зарегистрироваться"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 app:cornerRadius="16dp"

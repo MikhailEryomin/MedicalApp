@@ -16,6 +16,4 @@ object SessionManager {
         currentUser = null
     }
 
-    fun isDoctor(): Boolean = currentUser?.role == UserRole.DOCTOR
-
 }

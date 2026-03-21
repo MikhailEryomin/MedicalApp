@@ -31,7 +31,6 @@ fun PatientDto.toDomain(): Patient {
         firstName = this.firstName,
         lastName = this.lastName,
         birthDate = parsedDate,
-        email = this.email ?: "", // Защита от null
         gender = if (this.gender.equals("FEMALE", ignoreCase = true)) Gender.FEMALE else Gender.MALE,
         allergies = this.allergies ?: emptyList(),
         chronicDiseases = this.chronicDiseases ?: emptyList()

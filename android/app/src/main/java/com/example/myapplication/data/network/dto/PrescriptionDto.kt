@@ -12,6 +12,8 @@ data class PrescriptionDto(
     @SerializedName("id") val id: Int,
     @SerializedName("doctorId") val doctorId: Int,
     @SerializedName("patientId") val patientId: Int,
+    @SerializedName("doctorFirstName") val doctorFirstName: String,
+    @SerializedName("doctorLastName") val doctorLastName: String,
 
     @SerializedName("medicineId") val medicineId: Int,
     @SerializedName("medicineName") val medicineName: String,
@@ -48,7 +50,6 @@ fun PrescriptionDto.toDomain(): Prescription {
         if (date != null) uiFormat.format(date) else (this.endDate ?: "")
     } catch (e: Exception) { this.endDate ?: "" }
 
-    // Так как бэкенд не присылает form, ставим заглушку TABLET, на UI это не критично.
     val domainMedicine = Medicine(
         id = this.medicineId,
         name = this.medicineName,
@@ -59,6 +60,8 @@ fun PrescriptionDto.toDomain(): Prescription {
     return Prescription(
         id = this.id,
         doctorId = this.doctorId,
+        doctorFirstName = this.doctorFirstName,
+        doctorLastName = this.doctorLastName,
         patientId = this.patientId,
         medicine = domainMedicine,
         dosage = this.dosage ?: "",

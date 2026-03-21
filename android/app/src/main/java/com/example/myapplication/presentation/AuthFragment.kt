@@ -1,6 +1,7 @@
 package com.example.myapplication.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ class AuthFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[AuthViewModel::class.java]
         observeViewModel()
+        Log.d("TAG", "AuthFragment onCreate()")
     }
 
     private fun observeViewModel() {
@@ -69,6 +71,7 @@ class AuthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.resetState()
 
         with(binding) {
             tabDoctor.setOnClickListener {
@@ -76,6 +79,9 @@ class AuthFragment : Fragment() {
             }
             tabPatient.setOnClickListener {
                 viewModel.selectRole(UserRole.PATIENT)
+            }
+            tvRegister.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_createPatientFragment)
             }
         }
 
@@ -98,6 +104,7 @@ class AuthFragment : Fragment() {
                     ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_active)
                 tabPatient.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_inactive)
+                tvRegister.visibility = View.GONE
             } else {
                 tabPatient.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                 tabDoctor.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_hint))
@@ -105,6 +112,7 @@ class AuthFragment : Fragment() {
                     ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_inactive)
                 tabPatient.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_active)
+                tvRegister.visibility = View.VISIBLE
             }
         }
     }

@@ -28,6 +28,11 @@ class AuthViewModel: ViewModel() {
         _selectedRole.value = role
     }
 
+    fun resetState() {
+        _errorMessage.value = null
+        _isLoading.value = false
+    }
+
     fun login(email: String, pass: String) {
         if (email.isBlank() || pass.isBlank()) {
             _errorMessage.value = "Заполните все поля"
