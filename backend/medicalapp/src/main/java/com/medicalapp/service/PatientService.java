@@ -53,6 +53,19 @@ public class PatientService {
                 .toList();
     }
 
+    @Transactional
+    public boolean assignPatientToDoctor(Integer patientId, Doctor doctor) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new AppException(HttpStatus.NOT_FOUND, "Patient not found"));
+        boolean alreadyLinked = doctorRepository.existsDoctorPatientLink(doctor.getId(), patientId);
+        if (alreadyLinked) {
+            return false;
+        }
+        doctor.getPatients().add(patient);
+        doctorRepository.save(doctor);
+        return true;
+    }
+
     @Transactional(readOnly = true)
     public List<PatientListItem> getMyPatients(Doctor doctor) {
         List<Patient> patients = patientRepository.findByDoctorId(doctor.getId());

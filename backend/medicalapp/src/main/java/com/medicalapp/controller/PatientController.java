@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import java.util.Map;
 import java.util.List;
 
 @RestController
@@ -56,5 +56,19 @@ public class PatientController {
             @AuthenticationPrincipal UserPrincipal principal) {
         Doctor doctor = userService.getCurrentDoctor(principal);
         return ResponseEntity.status(HttpStatus.CREATED).body(patientService.createPatient(request, doctor));
+    }
+
+    @PostMapping("/api/doctors/me/patients/{patientId}")
+    public ResponseEntity<?> assignPatientToMe(
+            @PathVariable Integer patientId,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        Doctor doctor = userService.getCurrentDoctor(principal);
+        boolean created = patientService.assignPatientToDoctor(patientId, doctor);
+        if (created) {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(Map.of("detail", "Patient assigned to doctor"));
+        }
+        return ResponseEntity.ok(Map.of("detail", "Patient already assigned to doctor"));
     }
 }
