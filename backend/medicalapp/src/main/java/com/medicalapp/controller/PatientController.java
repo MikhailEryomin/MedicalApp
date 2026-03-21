@@ -50,13 +50,13 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getAllPatientsGlobal(search, limit));
     }
 
-    @PostMapping("/api/patients")
-    public ResponseEntity<PatientDetailResponse> createPatient(
-            @Valid @RequestBody CreatePatientRequest request,
-            @AuthenticationPrincipal UserPrincipal principal) {
-        Doctor doctor = userService.getCurrentDoctor(principal);
-        return ResponseEntity.status(HttpStatus.CREATED).body(patientService.createPatient(request, doctor));
-    }
+//    @PostMapping("/api/patients")
+//    public ResponseEntity<PatientDetailResponse> createPatient(
+//            @Valid @RequestBody CreatePatientRequest request,
+//            @AuthenticationPrincipal UserPrincipal principal) {
+//        Doctor doctor = userService.getCurrentDoctor(principal);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(patientService.createPatient(request, doctor));
+//    }
 
     @PostMapping("/api/doctors/me/patients/{patientId}")
     public ResponseEntity<?> assignPatientToMe(

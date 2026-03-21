@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.medicalapp.repository.PatientRepository;
 import java.util.*;
 
 @Service
@@ -57,6 +57,46 @@ public class AuthService {
         userMap.put("role", user.getRole().name());
         userMap.put("profile_id", profileId);
 
+        return new TokenResponse(token, userMap);
+    }
+
+    @Transactional
+    public TokenResponse registerPatient(RegisterPatientRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new AppException(HttpStatus.CONFLICT, "Email already registered");
+        }
+        Gender genderEnum = null;
+        if (request.getGender() != null && !request.getGender().isEmpty()) {
+            try {
+                genderEnum = Gender.valueOf(request.getGender());
+            } catch (IllegalArgumentException e) {
+                throw new AppException(HttpStatus.BAD_REQUEST, "Invalid gender. Use MALE or FEMALE.");
+            }
+        }
+        User user = User.builder()
+                .email(request.getEmail())
+                .passwordHash(passwordEncoder.encode(request.getPassword()))
+                .role(UserRole.PATIENT)
+                .build();
+        userRepository.save(user);
+        Patient patient = Patient.builder()
+                .user(user)
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .birthDate(request.getBirthDate())
+                .gender(genderEnum)
+                .allergies(request.getAllergies() != null ? request.getAllergies() : new java.util.ArrayList<>())
+                .chronicDiseases(request.getChronicDiseases() != null ? request.getChronicDiseases() : new java.util.ArrayList<>())
+                .build();
+        patientRepository.save(patient);
+        var claims = new java.util.HashMap<String, Object>();
+        claims.put("user_id", user.getId());
+        claims.put("role", user.getRole().name());
+        String token = jwtTokenProvider.createToken(claims);
+        var userMap = new java.util.HashMap<String, Object>();
+        userMap.put("id", user.getId());
+        userMap.put("role", user.getRole().name());
+        userMap.put("profile_id", patient.getId());
         return new TokenResponse(token, userMap);
     }
 

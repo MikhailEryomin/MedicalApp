@@ -46,7 +46,8 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/webjars/**",
-                                "/error"
+                                "/error",
+                                "/api/auth/register/patient"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

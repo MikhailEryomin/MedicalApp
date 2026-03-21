@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import com.medicalapp.dto.RegisterPatientRequest;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -37,5 +38,10 @@ public class AuthController {
             @AuthenticationPrincipal UserPrincipal principal) {
         Doctor doctor = userService.getCurrentDoctor(principal);
         return ResponseEntity.ok(authService.registerPatientByDoctor(request, doctor));
+    }
+
+    @PostMapping("/register/patient")
+    public ResponseEntity<TokenResponse> registerPatient(@Valid @RequestBody RegisterPatientRequest request) {
+        return ResponseEntity.ok(authService.registerPatient(request));
     }
 }
