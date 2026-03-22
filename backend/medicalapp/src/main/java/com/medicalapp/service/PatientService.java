@@ -100,6 +100,17 @@ public class PatientService {
         return toDetailResponse(patient);
     }
 
+    @Transactional
+    public boolean unassignPatientFromDoctor(Integer patientId, Doctor doctor) {
+        boolean patientExists = patientRepository.existsById(patientId);
+        if (!patientExists) {
+            throw new AppException(HttpStatus.NOT_FOUND, "Patient not found");
+        }
+
+        int deleted = doctorRepository.deleteDoctorPatientLink(doctor.getId(), patientId);
+        return deleted > 0;
+    }
+
     private PatientDetailResponse toDetailResponse(Patient p) {
         return PatientDetailResponse.builder()
                 .id(p.getId())
