@@ -8,7 +8,7 @@ data class User (
     val token: String = ""
 )
 
-enum class UserRole() {
-    DOCTOR,
-    PATIENT
+enum class UserRole(val displayName: String) {
+    DOCTOR("Доктор"),
+    PATIENT("Пациент")
 }

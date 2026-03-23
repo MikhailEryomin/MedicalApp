@@ -46,7 +46,26 @@ class PrescriptionsListAdapter(private val onItemClick: (item: PrescriptionUiMod
             binding.tvDoctor.text = item.doctorName
 
             binding.btnMarkTaken.setOnClickListener {
+                if (item.isLoading || item.isCompleted) return@setOnClickListener
                 onMarkTakenClick(item)
+            }
+
+            when {
+                item.isCompleted -> {
+                    binding.btnMarkTaken.isEnabled = false
+                    binding.btnMarkTaken.text = "Completed"
+                    binding.btnMarkTaken.alpha = 0.5f // Немного прозрачности для красоты
+                }
+                item.isLoading -> {
+                    binding.btnMarkTaken.isEnabled = false
+                    binding.btnMarkTaken.text = "Saving..."
+                    binding.btnMarkTaken.alpha = 0.7f
+                }
+                else -> {
+                    binding.btnMarkTaken.isEnabled = true
+                    binding.btnMarkTaken.text = "Mark as Taken"
+                    binding.btnMarkTaken.alpha = 1.0f
+                }
             }
 
             binding.btnMarkTaken.isEnabled = !item.isCompleted

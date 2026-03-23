@@ -36,6 +36,17 @@ class DoctorRepository {
         }
     }
 
+    suspend fun detachPatientFromDoctor(patientId: Int): Boolean {
+        return try {
+            RetrofitClient.doctorApi.detachPatient(patientId)
+            Log.d("DoctorRepository", "Пациент $patientId успешно откреплен!")
+            true
+        } catch (e: Exception) {
+            Log.e("DoctorRepository", "Ошибка открепления: ${e.message}")
+            false
+        }
+    }
+
     suspend fun getPatientProfile(): Patient {
         val dto = RetrofitClient.authApi.getUserInfo()
         return Patient(

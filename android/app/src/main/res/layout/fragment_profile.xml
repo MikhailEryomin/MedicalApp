@@ -32,14 +32,16 @@
                 android:layout_height="44dp"
                 android:background="@drawable/bg_icon_circle_light"
                 android:elevation="2dp"
+                android:layout_marginStart="2dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/btnBackSettings"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
                     android:layout_gravity="center"
                     android:contentDescription="Назад"
                     android:src="@drawable/ic_back" />
@@ -59,7 +61,6 @@
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <FrameLayout
-                android:id="@+id/btnLogout"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:background="@drawable/bg_icon_circle_light"
@@ -67,9 +68,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                <ImageButton
+                    android:id="@+id/btnLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
                     android:layout_gravity="center"
                     android:contentDescription="Выход"
                     android:src="@drawable/ic_logout"
@@ -176,6 +179,7 @@
 
             <!-- Notifications title -->
             <TextView
+                android:id="@+id/notifictationsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
@@ -198,6 +202,7 @@
 
                 <!-- Row 1 -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clNotifications"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:paddingStart="15dp"
@@ -258,6 +263,7 @@
 
                 <!-- Row 2 -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clPushes"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:paddingStart="15dp"

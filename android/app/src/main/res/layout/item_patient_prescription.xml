@@ -135,13 +135,15 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnMarkTaken"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
 
-        android:background="@drawable/bg_button_primary"
         android:text="Отметиться"
+        android:enabled="false"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:cornerRadius="16dp"
         app:backgroundTint="@color/primary_teal"
         android:textStyle="bold" />

@@ -108,10 +108,6 @@ class RegisterPatientViewModel : ViewModel() {
         }
     }
 
-    fun clearError() {
-        _errorMessage.value = null
-    }
-
     private fun validateInput(
         firstName: String,
         lastName: String,
@@ -120,21 +116,21 @@ class RegisterPatientViewModel : ViewModel() {
         password: String
     ): Boolean {
         if (firstName.isBlank() || lastName.isBlank()) {
-            _errorMessage.value = "Please enter first name and last name"
+            _errorMessage.value = "Пожалуйста, введите имя и фамилию"
             return false
         }
         val dateRegex = Regex("""^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.(19|20)\d\d$""")
         if (birthDate.isEmpty() || !birthDate.matches(dateRegex)) {
-            _errorMessage.value = "Please select date of birth"
+            _errorMessage.value = "Пожалуйста, укажите дату рождения"
             return false
         }
         val regex = "[a-zA-Z]+\\d*@[a-zA-Z]+\\.[a-z]+".toRegex()
         if (email.isBlank() || !email.matches(regex)) {
-            _errorMessage.value = "Please enter a valid email"
+            _errorMessage.value = "Пожалуйста, проверьте ваш email"
             return false
         }
         if (password.length < 6) {
-            _errorMessage.value = "Password must be at least 6 characters"
+            _errorMessage.value = "Пароль должен содержать как минимум 6 символов"
             return false
         }
         return true

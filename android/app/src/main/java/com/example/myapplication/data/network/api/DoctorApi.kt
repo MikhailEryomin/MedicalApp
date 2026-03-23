@@ -6,6 +6,7 @@ import com.example.myapplication.data.network.dto.MedicineDto
 import com.example.myapplication.data.network.dto.PatientDto
 import com.example.myapplication.data.network.dto.PrescriptionDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -36,6 +37,11 @@ interface DoctorApi {
     @POST("api/doctors/me/patients/{patientId}")
     suspend fun attachPatient(@Path("patientId") patientId: Int)
 
+    @DELETE("api/doctors/me/patients/{patientId}")
+    suspend fun detachPatient(@Path("patientId") patientId: Int)
+
     @POST("api/patients")
     suspend fun createPatient(@Body request: CreatePatientRequestDto): PatientDto
+
+
 }

@@ -40,7 +40,7 @@ class ProfileViewModel: ViewModel() {
                         firstName = doctor.firstName,
                         lastName = doctor.lastName,
                         email = currentUser.email,
-                        roleLabel = UserRole.DOCTOR.name
+                        roleLabel = UserRole.DOCTOR.displayName
                     )
                 }
                 else -> {
@@ -49,7 +49,7 @@ class ProfileViewModel: ViewModel() {
                         firstName = patient.firstName,
                         lastName = patient.lastName,
                         email = currentUser.email,
-                        roleLabel = UserRole.PATIENT.name
+                        roleLabel = UserRole.PATIENT.displayName
                     )
                 }
             }

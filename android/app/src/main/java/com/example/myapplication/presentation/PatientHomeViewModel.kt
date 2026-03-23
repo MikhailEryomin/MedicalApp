@@ -70,8 +70,26 @@ class PatientHomeViewModel : ViewModel() {
 
     fun onMarkTakenClicked(item: PrescriptionUiModel) {
         viewModelScope.launch {
-            repository.incrementTakenCount(item.prescription.id)
-            loadMyPrescriptions()
+            val currentList = _uiState.value.orEmpty().toMutableList()
+            val index = currentList.indexOfFirst { it.prescription.id == item.prescription.id }
+
+            if (index != -1) {
+                currentList[index] = currentList[index].copy(isLoading = true)
+                _uiState.value = currentList
+            }
+
+            // 2. ОТПРАВЛЯЕМ ЗАПРОС НА СЕРВЕР
+            try {
+                repository.incrementTakenCount(item.prescription.id)
+                loadMyPrescriptions()
+            } catch (e: Exception) {
+                val revertedList = _uiState.value.orEmpty().toMutableList()
+                val revertIndex = revertedList.indexOfFirst { it.prescription.id == item.prescription.id }
+                if (revertIndex != -1) {
+                    revertedList[revertIndex] = revertedList[revertIndex].copy(isLoading = false)
+                    _uiState.value = revertedList
+                }
+            }
         }
     }
 

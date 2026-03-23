@@ -80,7 +80,7 @@ class CreatePrescriptionFragment: Fragment() {
             }
         }
         viewModel.isSuccess.observe(this) {
-            Toast.makeText(requireContext(), "Success!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Успешно!", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
         }
     }

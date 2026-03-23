@@ -28,6 +28,15 @@ class PatientDetailsViewModel: ViewModel() {
     val isPrescriptionsLoading: LiveData<Boolean> = _isPrescriptionsLoading
 
 
+    fun detachPatient(patientId: Int, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            val success = repository.detachPatientFromDoctor(patientId)
+            if (success) {
+                onSuccess()
+            }
+        }
+    }
+
     @SuppressLint("NullSafeMutableLiveData")
     fun loadPatient(patientId: Int) {
         viewModelScope.launch {

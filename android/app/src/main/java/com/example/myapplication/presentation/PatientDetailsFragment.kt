@@ -60,6 +60,13 @@ class PatientDetailsFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.btnDetach.setOnClickListener {
+            viewModel.detachPatient(patientId) {
+                findNavController().previousBackStackEntry?.savedStateHandle?.set("refresh_patients", true)
+                findNavController().navigateUp()
+            }
+        }
     }
 
     private fun observeViewModel() {

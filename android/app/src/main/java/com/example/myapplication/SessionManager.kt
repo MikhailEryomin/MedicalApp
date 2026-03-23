@@ -13,6 +13,9 @@ object SessionManager {
     private const val KEY_EMAIL = "user_email"
     private const val KEY_ROLE = "user_role"
 
+    private const val KEY_REMINDERS = "pref_reminders"
+    private const val KEY_PUSH = "pref_push"
+
     private lateinit var prefs: SharedPreferences
 
     var currentUser: User? = null
@@ -59,4 +62,13 @@ object SessionManager {
             )
         }
     }
+
+    // Геттеры и сеттеры для свитчей
+    var isRemindersEnabled: Boolean
+        get() = prefs.getBoolean(KEY_REMINDERS, true) // По умолчанию включено
+        set(value) = prefs.edit().putBoolean(KEY_REMINDERS, value).apply()
+
+    var isPushEnabled: Boolean
+        get() = prefs.getBoolean(KEY_PUSH, true)
+        set(value) = prefs.edit().putBoolean(KEY_PUSH, value).apply()
 }

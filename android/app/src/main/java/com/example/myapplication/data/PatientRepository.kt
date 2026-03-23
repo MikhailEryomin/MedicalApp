@@ -7,6 +7,7 @@ import com.example.myapplication.domain.Doctor
 import com.example.myapplication.domain.Patient
 import com.example.myapplication.domain.Prescription
 import com.example.myapplication.domain.PrescriptionStatus
+import kotlinx.coroutines.delay
 
 
 class PatientRepository {
@@ -42,6 +43,7 @@ class PatientRepository {
     }
 
     suspend fun incrementTakenCount(prescriptionId: Int) {
+        delay(500)
         doctorRepo.incrementTakenCount(prescriptionId)
     }
 

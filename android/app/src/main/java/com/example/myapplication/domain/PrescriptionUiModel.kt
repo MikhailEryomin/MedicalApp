@@ -6,5 +6,6 @@ data class PrescriptionUiModel(
     val totalCount: Int,
     val progressPercent: Int,
     val isCompleted: Boolean,
-    val doctorName: String
+    val doctorName: String,
+    val isLoading: Boolean = false
 )

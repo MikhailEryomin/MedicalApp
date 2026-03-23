@@ -58,8 +58,8 @@ class RegisterPatientFragment: Fragment() {
         }
         viewModel.errorMessage.observe(this) { msg ->
             if (msg != null) {
-                Toast.makeText(requireContext(), "Error: ${msg}!", Toast.LENGTH_SHORT).show()
-                Log.e("TAG", "Error: ${msg}!")
+                Toast.makeText(requireContext(), "Ошибка: ${msg}!", Toast.LENGTH_LONG).show()
+                Log.e("TAG", "Ошибка: ${msg}!")
             }
         }
         viewModel.isLoading.observe(this) { isLoading ->
