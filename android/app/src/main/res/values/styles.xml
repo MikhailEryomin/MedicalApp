@@ -8,4 +8,78 @@
         <item name="colorPrimaryDark">@color/background_gray</item>
         <item name="colorAccent">@color/primary_teal</item>
     </style>
+
+    <style name="TextAppearance.App.Title" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TextAppearance.App.SegmentSelected" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.SegmentNormal" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.InputHint" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_hint</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.Helper" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_hint</item>
+    </style>
+
+    <!-- ========================================= -->
+    <!-- ТИПОГРАФИКА (SYSTEM TYPOGRAPHY)           -->
+    <!-- ========================================= -->
+
+    <!-- 1. Заголовки экранов (H1) - "My Patients", "Registration" -->
+    <style name="TextAppearance.MedicalApp.Header" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <!-- <item name="android:fontFamily">@font/твои_кастомный_шрифт</item> -->
+    </style>
+
+    <!-- 2. Подзаголовки карточек (H2) - "General Information", "Allergies" -->
+    <style name="TextAppearance.MedicalApp.Subheader" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 3. Основной текст (Body) - Имена в списках, названия лекарств -->
+    <style name="TextAppearance.MedicalApp.Body" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- 4. Второстепенный текст и Описания (Caption) - Возраст, "12 of 30 pills left" -->
+    <style name="TextAppearance.MedicalApp.Description" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- 5. Мелкие подписи и подсказки (Hint) - "Started: Feb 15", надписи под полями ввода -->
+    <style name="TextAppearance.MedicalApp.Label" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_hint</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

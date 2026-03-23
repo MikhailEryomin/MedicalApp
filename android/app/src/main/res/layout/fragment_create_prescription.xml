@@ -1,249 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background_gray">
+    android:background="@color/screen_bg">
 
-    <!-- HEADER -->
+    <!-- Header -->
     <LinearLayout
-        android:id="@+id/headerPrescription"
-        android:layout_width="match_parent"
+        android:id="@+id/header"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="@color/white"
-        android:elevation="4dp"
-        android:gravity="center_vertical"
-        android:paddingStart="24dp"
-        android:paddingTop="48dp"
-        android:paddingBottom="24dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:elevation="2dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageButton
-            android:id="@+id/btnBackPrescription"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_circle_gray"
-            android:src="@drawable/ic_arrow_left"
-            app:tint="@color/text_secondary"
-            android:contentDescription="Back" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Create Prescription"
-            android:textColor="@color/text_primary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <FrameLayout
+                android:id="@+id/btnBack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_icon_circle_light"
+                android:elevation="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/btnBackPrescription"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_back"
+                    android:contentDescription="Назад" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_prescription_title"
+                android:textColor="@color/text_primary"
+                style="@style/TextAppearance.MedicalApp.Header"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <!-- SCROLLABLE FORM -->
-    <ScrollView
-        android:layout_width="match_parent"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/bottomBarPrescription"
-        app:layout_constraintTop_toBottomOf="@id/headerPrescription">
+        android:clipToPadding="false"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:orientation="vertical">
 
-            <!-- Medicine -->
-            <TextView
-                style="@style/MedicalApp"
-                android:text="Medicine" />
-            <EditText
-                android:id="@+id/etMedicine"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_rounded_input"
-                android:elevation="2dp"
-                android:hint="e.g. Amoxycyclin"
-                android:paddingHorizontal="16dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_hint" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSearchMedicine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_search_prescription"
-                tools:itemCount="2"
-                />
-
-            <!-- Dosage -->
-            <TextView
-                style="@style/MedicalApp"
-                android:layout_marginTop="16dp"
-                android:text="Dosage, mg" />
-            <EditText
-                android:id="@+id/etDosage"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_rounded_input"
-                android:elevation="2dp"
-                android:hint="e.g., 500 mg"
-                android:paddingHorizontal="16dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_hint" />
-
-            <!-- Times per day (STEPPER) -->
-            <TextView
-                style="@style/MedicalApp"
-                android:layout_marginTop="16dp"
-                android:text="Times per day" />
+            <!-- Лекарство -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_rounded_input"
-                android:elevation="2dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
-
-                <ImageButton
-                    android:id="@+id/btnMinusTimes"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_circle_gray"
-                    android:src="@drawable/ic_minus"
-                    android:contentDescription="Decrease" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvTimesPerDay"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="2"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
+                    android:text="@string/label_medicine"
+                    style="@style/TextAppearance.MedicalApp.Description"
                     android:textStyle="bold" />
 
-                <ImageButton
-                    android:id="@+id/btnPlusTimes"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_circle_gray"
-                    android:src="@drawable/ic_plus"
-                    android:contentDescription="Increase" />
+                <EditText
+                    android:id="@+id/etMedicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/bg_input_field"
+                    android:elevation="2dp"
+                    android:hint="@string/hint_medicine"
+                    android:minHeight="56dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint"
+                    style="@style/TextAppearance.MedicalApp.Body" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSearchMedicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_search_prescription"
+                    tools:itemCount="2"
+                    />
             </LinearLayout>
 
-            <!-- Duration (STEPPER) -->
-            <TextView
-                style="@style/MedicalApp"
-                android:layout_marginTop="16dp"
-                android:text="Duration (days)" />
+            <!-- Дозировка -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_rounded_input"
-                android:elevation="2dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
-
-                <ImageButton
-                    android:id="@+id/btnMinusDuration"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_circle_gray"
-                    android:src="@drawable/ic_minus"
-                    android:contentDescription="Decrease" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvDuration"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="10"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
+                    android:text="@string/label_dosage"
+                    android:textColor="#5E6470"
+                    style="@style/TextAppearance.MedicalApp.Description"
                     android:textStyle="bold" />
 
-                <ImageButton
-                    android:id="@+id/btnPlusDuration"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_circle_gray"
-                    android:src="@drawable/ic_plus"
-                    android:contentDescription="Increase" />
+                <EditText
+                    android:id="@+id/etDosage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/bg_input_field"
+                    android:elevation="2dp"
+                    android:hint="@string/hint_dosage"
+                    android:minHeight="56dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint"
+                    style="@style/TextAppearance.MedicalApp.Body"/>
             </LinearLayout>
 
-            <!-- Instructions -->
-            <TextView
-                style="@style/MedicalApp"
-                android:layout_marginTop="16dp"
-                android:text="Instructions" />
-            <EditText
-                android:id="@+id/etInstructions"
+            <!-- Раз в день -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_rounded_input"
-                android:elevation="2dp"
-                android:gravity="top"
-                android:hint="Enter instructions for the patient..."
-                android:inputType="textMultiLine"
-                android:minLines="4"
-                android:padding="16dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_hint" />
+                android:layout_marginTop="14dp"
+                android:orientation="vertical">
 
-            <!-- Templates (Chips) -->
-            <TextView
-                style="@style/MedicalApp"
-                android:layout_marginTop="24dp"
-                android:text="Templates" />
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroupTemplates"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_times_per_day"
+                    android:textColor="#5E6470"
+                    style="@style/TextAppearance.MedicalApp.Description"
+                    android:textStyle="bold" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/bg_rounded_input"
+                    android:elevation="2dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <FrameLayout
+                        android:id="@+id/btnMinusTimes"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_minus"
+                            android:tint="@color/text_primary"
+                            android:contentDescription="Уменьшить" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvTimesPerDay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/text_primary"
+                        style="@style/TextAppearance.MedicalApp.Body"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/btnMinusTimes"
+                        app:layout_constraintEnd_toStartOf="@id/btnPlusTimes"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <FrameLayout
+                        android:id="@+id/btnPlusTimes"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_plus"
+                            android:tint="@color/text_primary"
+                            android:contentDescription="Увеличить" />
+                    </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <!-- Длительность -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipFlu"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Flu"
-                    app:chipBackgroundColor="@color/white"
-                    app:chipStrokeColor="@color/border_gray"
-                    app:chipStrokeWidth="1dp" />
+                    android:text="@string/label_duration_days"
+                    android:textColor="#5E6470"
+                    style="@style/TextAppearance.MedicalApp.Description"
+                    android:textStyle="bold" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipHypertension"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hypertension"
-                    app:chipBackgroundColor="@color/white"
-                    app:chipStrokeColor="@color/border_gray"
-                    app:chipStrokeWidth="1dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/bg_input_field"
+                    android:elevation="2dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipAngina"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Angina"
-                    app:chipBackgroundColor="@color/white"
-                    app:chipStrokeColor="@color/border_gray"
-                    app:chipStrokeWidth="1dp" />
-            </com.google.android.material.chip.ChipGroup>
+                    <FrameLayout
+                        android:id="@+id/btnMinusDuration"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- Spacer -->
-            <Space
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="Уменьшить"
+                            android:src="@drawable/ic_minus"
+                            android:tint="@color/text_primary" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvDuration"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="10"
+                        android:textColor="@color/text_primary"
+                        style="@style/TextAppearance.MedicalApp.Body"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/btnMinusDuration"
+                        app:layout_constraintEnd_toStartOf="@id/btnPlusDuration"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <FrameLayout
+                        android:id="@+id/btnPlusDuration"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="Увеличить"
+                            android:src="@drawable/ic_plus"
+                            android:tint="@color/text_primary" />
+                    </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <!-- Инструкция -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="24dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_instructions"
+                    android:textColor="#5E6470"
+                    style="@style/TextAppearance.MedicalApp.Description"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etInstructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_textarea_field"
+                    android:elevation="2dp"
+                    android:gravity="top|start"
+                    android:layout_marginBottom="2dp"
+                    android:hint="@string/hint_instructions"
+                    android:padding="10dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint"
+                    style="@style/TextAppearance.MedicalApp.Body" />
+            </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <!-- BOTTOM BAR -->
     <LinearLayout
         android:id="@+id/bottomBarPrescription"
         android:layout_width="match_parent"
@@ -251,7 +345,7 @@
         android:background="@color/background_gray"
         android:paddingHorizontal="24dp"
         android:paddingTop="16dp"
-        android:paddingBottom="32dp"
+        android:paddingBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <FrameLayout
@@ -263,9 +357,8 @@
                 android:enabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Prescribe"
-                android:textAllCaps="false"
-                android:textSize="16sp"
+                android:text="Создать рецепт"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:backgroundTint="@color/primary_teal"
                 app:cornerRadius="16dp" />

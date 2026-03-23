@@ -5,4 +5,5 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:text="Ibuprofen"
+    style="@style/TextAppearance.MedicalApp.Description"
     android:padding="10dp" />

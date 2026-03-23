@@ -63,7 +63,7 @@ class PrescriptionDetailsFragment: Fragment() {
         binding.apply {
             val remaining = uiModel.totalCount - uiModel.takenCount
             tvPillsNumber.text = remaining.toString()
-            tvPillsRemaining.text = "$remaining of ${uiModel.totalCount} pills remaining"
+            tvPillsRemaining.text = "$remaining из ${uiModel.totalCount} таблеток осталось"
             tvMedicineTitle.text = "${uiModel.prescription.medicine.name} ${uiModel.prescription.dosage}"
             tvCourseDates.text = "${uiModel.prescription.startDate} - ${uiModel.prescription.endDate}"
             tvInstructions.text = uiModel.prescription.notes

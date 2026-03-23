@@ -2,12 +2,15 @@ package com.example.myapplication.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
 import com.example.myapplication.databinding.ItemPatientPrescriptionBinding
 import com.example.myapplication.databinding.ItemPrescriptionBinding
 import com.example.myapplication.domain.Prescription
+import com.example.myapplication.domain.PrescriptionStatus
 
 class PatientPrescriptionsAdapter(): ListAdapter<Prescription, PatientPrescriptionsAdapter.PrescriptionViewHolder>(DiffCallback()) {
 
@@ -29,9 +32,16 @@ class PatientPrescriptionsAdapter(): ListAdapter<Prescription, PatientPrescripti
     inner class PrescriptionViewHolder(private val binding: ItemPrescriptionBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Prescription) {
             binding.tvMedicineName.text = "${item.medicine.name} ${item.medicine.defaultDosage}"
-            binding.tvStatus.text = item.status.displayName
-            binding.tvDosage.text = "${item.frequency} pills per day"
-            binding.tvStartDate.text = "Started: ${item.startDate}"
+            val status = item.status.displayName
+            binding.tvStatus.text = status
+            if (status == PrescriptionStatus.ACTIVE.displayName) {
+                binding.tvStatus.background = ContextCompat.getDrawable(binding.tvStatus.context, R.drawable.bg_status_active)
+            } else if (status == PrescriptionStatus.COMPLETED.displayName) {
+                binding.tvStatus.background = ContextCompat.getDrawable(binding.tvStatus.context, R.drawable.bg_status_completed)
+            }
+
+            binding.tvDosage.text = "${item.frequency} таблеток в день"
+            binding.tvStartDate.text = "Начало: ${item.startDate}"
         }
     }
 

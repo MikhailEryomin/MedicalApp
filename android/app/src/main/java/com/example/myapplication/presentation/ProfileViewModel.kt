@@ -22,7 +22,6 @@ class ProfileViewModel: ViewModel() {
 
     fun logout() {
         SessionManager.clear()
-        _isLoggedOut.value = true
     }
 
     init {

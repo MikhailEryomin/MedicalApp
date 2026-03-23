@@ -9,6 +9,7 @@ import com.example.myapplication.databinding.ItemPatientBinding
 import com.example.myapplication.databinding.ItemPatientPrescriptionBinding
 import com.example.myapplication.domain.Prescription
 import com.example.myapplication.domain.Patient
+import com.example.myapplication.domain.PrescriptionStatus
 import com.example.myapplication.domain.PrescriptionUiModel
 import com.example.myapplication.presentation.PatientListAdapter.DiffCallback
 
@@ -32,23 +33,24 @@ class PrescriptionsListAdapter(private val onItemClick: (item: PrescriptionUiMod
 
     inner class PrescriptionViewHolder(private val binding: ItemPatientPrescriptionBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PrescriptionUiModel) {
-            binding.tvPrescMedicine.text = item.prescription.medicine.name
+            binding.tvPrescMedicine.text = "${item.prescription.medicine.name} ${item.prescription.dosage} мг"
             binding.llPrescription.setOnClickListener {
                 onItemClick(item)
             }
 
             binding.progressBar.max = 100
             binding.progressBar.progress = item.progressPercent
-            binding.tvPillsCount.text = "${item.takenCount} / ${item.totalCount} taken"
+            binding.tvPillsLeft.text = "${item.totalCount - item.takenCount} / ${item.totalCount} осталось"
             binding.tvPrescDates.text = "${item.prescription.startDate} - ${item.prescription.endDate}"
-            binding.tvPrescDosage.text = "${item.prescription.frequency} pills per day"
+            binding.tvPrescFrequency.text = "${item.prescription.frequency} таблеток в день"
+            binding.tvDoctor.text = item.doctorName
 
             binding.btnMarkTaken.setOnClickListener {
                 onMarkTakenClick(item)
             }
 
             binding.btnMarkTaken.isEnabled = !item.isCompleted
-            binding.btnMarkTaken.text = if (item.isCompleted) "Completed" else "Mark as Taken"
+            binding.btnMarkTaken.text = if (item.isCompleted)  PrescriptionStatus.COMPLETED.displayName else  "Отметиться"
         }
     }
 

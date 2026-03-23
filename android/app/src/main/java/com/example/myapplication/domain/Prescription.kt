@@ -30,7 +30,6 @@ data class Prescription(
 }
 
 enum class PrescriptionStatus(val displayName: String) {
-    ACTIVE("Active"),
-    COMPLETED("Completed"),
-    CANCELLED("Cancelled")
+    ACTIVE("Активно"),
+    COMPLETED("Завершено")
 }

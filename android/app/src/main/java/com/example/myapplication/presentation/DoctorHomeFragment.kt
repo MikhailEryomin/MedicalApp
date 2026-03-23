@@ -48,12 +48,16 @@ class DoctorHomeFragment: Fragment() {
 
         viewModel.currentTab.observe(this) { tab ->
             if (tab == DoctorHomeTab.MY_PATIENTS) {
-                binding.tabMyPatients.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_selected)
-                binding.tabGlobalSearch.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_unselected)
+                binding.tabMyPatients.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_active)
+                binding.tabGlobalSearch.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_inactive)
+                binding.tabMyPatients.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.tabGlobalSearch.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary))
                 binding.rvPatients.adapter = adapter
             } else {
-                binding.tabGlobalSearch.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_selected)
-                binding.tabMyPatients.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_unselected)
+                binding.tabGlobalSearch.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_active)
+                binding.tabMyPatients.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_inactive)
+                binding.tabGlobalSearch.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.tabMyPatients.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary))
                 binding.rvPatients.adapter = globalAdapter
             }
         }
@@ -92,6 +96,8 @@ class DoctorHomeFragment: Fragment() {
     }
 
     private fun bindViews() {
+
+        viewModel.setTab(DoctorHomeTab.MY_PATIENTS, binding.etSearch.text.toString())
 
         binding.btnSettings.setOnClickListener {
             findNavController().navigate(R.id.action_doctorHome_to_profile)

@@ -55,7 +55,7 @@ class ProfileFragment: Fragment() {
         }
 
         binding.btnLogout.setOnClickListener {
-            SessionManager.clear()
+            viewModel.logout()
             findNavController().navigate(R.id.action_profile_to_auth)
         }
     }

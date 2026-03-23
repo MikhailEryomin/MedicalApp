@@ -1,3 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Их таблетки</string>
+
+    <string name="login_title">Их таблетки</string>
+    <string name="role_doctor">Я врач</string>
+    <string name="role_patient">Я пациент</string>
+
+    <string name="action_login">Войти</string>
+    <string name="register_text">Нет аккаунта? Регистрация</string>
+
+    <string name="cd_logo">Логотип приложения</string>
+    <string name="cd_email">Почта</string>
+    <string name="cd_password">Пароль</string>
+    <string name="cd_show_password">Показать пароль</string>
+
+    <string name="new_patient_title">Новый пациент</string>
+    <string name="patient_information_title">Информация о пациенте</string>
+
+    <string name="label_first_name">Имя *</string>
+    <string name="label_last_name">Фамилия *</string>
+    <string name="label_birth_date">Дата рождения *</string>
+    <string name="label_gender">Пол *</string>
+    <string name="label_email">Почта *</string>
+    <string name="label_password">Пароль *</string>
+
+    <string name="hint_first_name">Введите имя</string>
+    <string name="hint_last_name">Введите фамилию</string>
+    <string name="hint_birth_date">ДД.ММ.ГГГГ</string>
+    <string name="hint_email">Почта</string>
+    <string name="hint_password">Пароль</string>
+    <string name="hint_allergies">например, пенициллин</string>
+    <string name="hint_chronic_diseases">например, диабет</string>
+
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+
+    <string name="email_helper">Требуется для входа в аккаунт</string>
+    <string name="password_helper">Требуется для входа в аккаунт</string>
+
+    <string name="treatment_details_title">Детали лечения</string>
+    <string name="medicine_name_demo">Амоксициллин 500 мг</string>
+
+    <string name="pills_left_value">12</string>
+    <string name="pills_left_label">таблеток осталось</string>
+    <string name="pills_left_summary">12 из 30 таблеток осталось</string>
+
+    <string name="section_information">Информация</string>
+    <string name="label_course_dates">Даты курса</string>
+    <string name="value_course_dates">20 апр. – 10 мая 2026</string>
+
+    <string name="value_instructions">Принимать после еды</string>
+
+    <string name="label_frequency">Частота</string>
+    <string name="value_frequency">2 таблетки в день</string>
+
+    <string name="label_prescribed_by">Назначил</string>
+    <string name="value_prescribed_by">Д-р Петров А.Б.</string>
+
+    <string name="settings_title">Настройки</string>
+
+    <string name="doctor_name_demo">Д-р Петров А.Б.</string>
+    <string name="doctor_email_demo">doctor@email.com</string>
+    <string name="doctor_initials_demo">ПА</string>
+
+    <string name="section_notifications">Уведомления</string>
+    <string name="section_security">Безопасность</string>
+
+    <string name="settings_medication_reminder">Напоминания</string>
+    <string name="settings_medication_reminder_desc">Получать уведомление о приёме лекарств</string>
+
+    <string name="settings_push_notifications">Push-уведомления</string>
+    <string name="settings_push_notifications_desc">Получать уведомления на телефон</string>
+
+    <string name="settings_face_id">Вход по биометрии</string>
+    <string name="settings_face_id_desc">Использовать вход по Face ID</string>
+
+    <string name="medicines_title">Лекарства</string>
+    <string name="tab_active">Активные</string>
+    <string name="tab_completed">Завершенные</string>
+
+    <string name="medicine_1_name">Амоксициллин 500 мг</string>
+    <string name="medicine_1_dates">📅 20 апр. – 10 мая</string>
+    <string name="medicine_1_dosage">📝 1 таблетка 2 раза в день</string>
+    <string name="medicine_1_doctor">🏥 Д-р Петров А.Б.</string>
+    <string name="medicine_1_left">12 из 30 таблеток осталось</string>
+
+    <string name="medicine_2_name">Лозартан 50 мг</string>
+    <string name="medicine_2_dates">📅 10 фев. – 10 апр.</string>
+    <string name="medicine_2_dosage">📝 1 таблетка 1 раз в день</string>
+    <string name="medicine_2_doctor">🏥 Д-р Петров А.Б.</string>
+    <string name="medicine_2_left">52 из 60 таблеток осталось</string>
+
+    <string name="mark_as_taken">Отметить приём лекарства</string>
+
+    <string name="patient_name_demo">Иванов Иван Иванович</string>
+
+    <string name="section_main_info">Основная информация</string>
+    <string name="section_prescriptions">Рецепты</string>
+
+    <string name="label_full_name">Полное имя</string>
+    <string name="label_gender_value">Пол</string>
+    <string name="label_age">Возраст</string>
+    <string name="label_allergies">Аллергии</string>
+    <string name="label_chronic_diseases">Хронические заболевания</string>
+
+    <string name="value_full_name_demo">Иванов Иван Иванович</string>
+    <string name="value_gender_demo">Мужской</string>
+    <string name="value_age_demo">45 лет</string>
+
+    <string name="allergy_penicillin">Пенициллин</string>
+    <string name="allergy_peanut">Арахис</string>
+
+    <string name="disease_hypertension">Гипертензия</string>
+    <string name="disease_diabetes">Диабет 2 типа</string>
+
+    <string name="prescription_1_name">Амоксициллин 500 мг</string>
+    <string name="prescription_1_status_active">Активно</string>
+    <string name="prescription_1_dosage">1 таблетка дважды в день</string>
+    <string name="prescription_1_start">Начало: 15 фев. 2026 г.</string>
+
+    <string name="prescription_2_name">Лозартан 50 мг</string>
+    <string name="prescription_2_status_active">Активно</string>
+    <string name="prescription_2_dosage">1 таблетка один раз в день</string>
+    <string name="prescription_2_start">Начало: 1 фев. 2026 г.</string>
+
+    <string name="prescription_3_name">Парацетамол 500 мг</string>
+    <string name="prescription_3_status_done">Завершено</string>
+    <string name="prescription_3_dosage">1 таблетка по необходимости</string>
+    <string name="prescription_3_start">Начало: 1 фев. 2026 г.</string>
+
+    <string name="action_prescribe">Выписать рецепт</string>
+
+    <string name="create_prescription_title">Создать рецепт</string>
+
+    <string name="label_medicine">Лекарство</string>
+    <string name="label_dosage">Дозировка, мг</string>
+    <string name="label_times_per_day">Раз в день</string>
+    <string name="label_duration_days">Длительность (дней)</string>
+    <string name="label_instructions">Инструкция</string>
+    <string name="label_templates">Шаблоны</string>
+
+    <string name="hint_medicine">например, Амоксициллин</string>
+    <string name="hint_dosage">например, 500 мг</string>
+    <string name="hint_instructions">Введите инструкцию для пациента...</string>
+
+    <string name="template_flu">Грипп</string>
+    <string name="template_hypertension">Гипертензия</string>
+    <string name="template_angina">Ангина</string>
+
 </resources>

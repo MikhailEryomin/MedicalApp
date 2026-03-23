@@ -41,10 +41,8 @@ class PatientHomeViewModel : ViewModel() {
                     val taken = prescription.takenCount
                     val total = prescription.totalDoses
                     val percent = if (total > 0) (taken * 100) / total else 0
-                    val doctor = repository.getDoctorById(prescription.doctorId)
+                    val doctorName = "${prescription.doctorFirstName} ${prescription.doctorLastName}"
 
-                    val doctorName =
-                        if (doctor != null) "${doctor.firstName} ${doctor.lastName}" else ""
 
                     PrescriptionUiModel(
                         prescription = prescription,
@@ -59,6 +57,8 @@ class PatientHomeViewModel : ViewModel() {
                 allPrescriptions = uiModels
 
                 _uiState.value = uiModels
+
+                getActivePrescriptions()
 
             } catch (e: Exception) {
                 //handling

@@ -30,7 +30,6 @@ class AuthFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.isLoading.observe(this) { isLoading ->
             binding.authProgressBar.isVisible = isLoading
-            binding.btnLogin.text = if (isLoading) "" else "Sign In"
             binding.btnLogin.isEnabled = !isLoading
             binding.etEmail.isEnabled = !isLoading
             binding.etPassword.isEnabled = !isLoading
@@ -70,6 +69,16 @@ class AuthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val user = SessionManager.currentUser
+        if (user != null && user.token.isNotEmpty()) {
+            if (user.role == UserRole.DOCTOR) {
+                findNavController().navigate(R.id.action_auth_to_doctorHome)
+            } else {
+                findNavController().navigate(R.id.action_auth_to_patientHome)
+            }
+            return
+        }
 
         viewModel.resetState()
 

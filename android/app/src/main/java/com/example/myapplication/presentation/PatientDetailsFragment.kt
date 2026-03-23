@@ -57,7 +57,7 @@ class PatientDetailsFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        binding.btnBackProfile.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
     }

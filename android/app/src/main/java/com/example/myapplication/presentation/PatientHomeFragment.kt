@@ -65,22 +65,18 @@ class PatientHomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBackPrescriptions.setOnClickListener {
-            findNavController().navigateUp()
-        }
-
         binding.btnSettingsPrescriptions.setOnClickListener {
             findNavController().navigate(R.id.action_patientHome_to_profile)
         }
 
         binding.tabActive.setOnClickListener {
-            binding.tabActive.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_selected)
+            binding.tabActive.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_selected_white)
             binding.tabCompleted.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_unselected)
             viewModel.getActivePrescriptions()
         }
 
         binding.tabCompleted.setOnClickListener {
-            binding.tabCompleted.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_selected)
+            binding.tabCompleted.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_selected_white)
             binding.tabActive.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_tab_unselected)
             viewModel.getCompletedPrescriptions()
         }

@@ -1,125 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    android:id="@+id/cvPrescription"
+<LinearLayout
+    android:id="@+id/llPrescription"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    android:clickable="true"
-    android:focusable="true"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:contentPadding="20dp">
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/bg_medicine_card"
+    android:elevation="2dp"
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <LinearLayout
-        android:id="@+id/llPrescription"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="10dp">
 
-        <!-- Верхняя часть: Иконка + Инфо -->
+        <FrameLayout
+            android:id="@+id/iconContainer"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_pill_icon_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivMedicineIcon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_pill"
+                android:tint="@color/primary_teal"
+                android:contentDescription="Лекарство" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutMedicineInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@id/iconContainer"
+            app:layout_constraintEnd_toStartOf="@id/ivArrow"
+            app:layout_constraintTop_toTopOf="@id/iconContainer">
+
+            <TextView
+                android:id="@+id/tvPrescMedicine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Амоксициллин 500 мг"
+                android:textColor="@color/text_primary"
+                style="@style/TextAppearance.MedicalApp.Body"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPrescDates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="📅 20 апр. – 10 мая"
+                android:textColor="@color/text_hint"
+                style="@style/TextAppearance.MedicalApp.Description"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPrescFrequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="📝 1 таблетка 2 раза в день"
+                android:textColor="@color/text_hint"
+                style="@style/TextAppearance.MedicalApp.Label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDoctor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="🏥 Д-р Петров А.Б."
+                android:textColor="@color/text_hint"
+                style="@style/TextAppearance.MedicalApp.Label"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="12dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_chevron_right"
+            android:contentDescription="Открыть"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iconContainer"
+            app:layout_constraintBottom_toBottomOf="@id/iconContainer" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Progress -->
+    <FrameLayout
+        android:id="@+id/progressContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <!-- Круглая иконка таблетки -->
-            <FrameLayout
-                android:layout_width="48dp"
-                android:layout_height="48dp">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_pill_icon" />
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_pill" />
-            </FrameLayout>
-
-            <!-- Текстовая информация -->
-            <LinearLayout
+            <!-- Полоска прогресса -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:orientation="vertical">
+                android:layout_marginTop="8dp"
+                android:progress="50"
+                android:max="100" />
 
-                <TextView
-                    android:id="@+id/tvPrescMedicine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:text="Amoxicillin 500mg"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvPrescDates"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📅 Apr 20 – May 10"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tvPrescDosage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📝 1 tablet twice daily"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
-            </LinearLayout>
         </LinearLayout>
+    </FrameLayout>
 
-        <!-- Прогресс-бар -->
-        <FrameLayout
-            android:id="@+id/progressContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp">
+    <TextView
+        android:id="@+id/tvPillsLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="12 из 30 таблеток осталось"
+        android:textColor="@color/text_hint"
+        android:textSize="12sp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-                <!-- Полоска прогресса -->
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:progress="50"
-                    android:max="100" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMarkTaken"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
 
-                <TextView
-                    android:id="@+id/tvPillsCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="12 of 30 pills left"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </FrameLayout>
+        android:background="@drawable/bg_button_primary"
+        android:text="Отметиться"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="16dp"
+        app:backgroundTint="@color/primary_teal"
+        android:textStyle="bold" />
 
-        <!-- Кнопка Mark as Taken -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnMarkTaken"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:text="Mark as Taken"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:cornerRadius="16dp"
-            app:backgroundTint="@color/primary_teal"
-            android:textStyle="bold" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+</LinearLayout>

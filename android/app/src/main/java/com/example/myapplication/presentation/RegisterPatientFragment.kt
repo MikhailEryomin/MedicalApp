@@ -1,6 +1,7 @@
 package com.example.myapplication.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +59,7 @@ class RegisterPatientFragment: Fragment() {
         viewModel.errorMessage.observe(this) { msg ->
             if (msg != null) {
                 Toast.makeText(requireContext(), "Error: ${msg}!", Toast.LENGTH_SHORT).show()
+                Log.e("TAG", "Error: ${msg}!")
             }
         }
         viewModel.isLoading.observe(this) { isLoading ->

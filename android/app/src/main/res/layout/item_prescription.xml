@@ -33,19 +33,18 @@
                     android:id="@+id/tvMedicineName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amoxicillin 500mg"
+                    android:text="Амоксициклин 500 мг"
                     android:textColor="@color/text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/TextAppearance.MedicalApp.Body" />
 
                 <TextView
                     android:id="@+id/tvDosage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="1 tablet twice daily"
+                    android:text="1 таблетка дважды в день"
                     android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    style="@style/TextAppearance.MedicalApp.Description" />
             </LinearLayout>
 
             <!-- Status Badge -->
@@ -57,9 +56,9 @@
                 android:background="@drawable/bg_status_active"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
-                android:text="Active"
+                android:text="Активно"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                style="@style/TextAppearance.MedicalApp.Label" />
         </LinearLayout>
 
         <!-- Дата -->
@@ -67,9 +66,9 @@
             android:id="@+id/tvStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Started: Feb 15, 2026"
+            android:layout_marginTop="2dp"
+            android:text="Начало: 1 фев. 2026 г."
             android:textColor="@color/text_light"
-            android:textSize="12sp" />
+            style="@style/TextAppearance.MedicalApp.Label" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

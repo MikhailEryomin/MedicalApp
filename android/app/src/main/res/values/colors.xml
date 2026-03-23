@@ -1,13 +1,4 @@
 <resources>
-    <!-- Основные цвета из твоего кода -->
-    <color name="primary_teal">#0D9488</color> <!-- Твой зеленый/тил -->
-    <color name="background_gray">#F5F7FA</color> <!-- Светло-серый фон -->
-    <color name="white">#FFFFFF</color>
-
-    <!-- Тексты -->
-    <color name="text_primary">#1F2937</color> <!-- gray-800 -->
-    <color name="text_secondary">#6B7280</color> <!-- gray-500/600 -->
-    <color name="text_hint">#9CA3AF</color> <!-- gray-400 -->
 
     <!-- Элементы -->
     <color name="input_bg">#FFFFFF</color>
@@ -20,6 +11,7 @@
     <color name="status_active">#10B981</color>     <!-- Зеленый -->
     <color name="status_warning">#F59E0B</color>    <!-- Оранжевый -->
     <color name="status_completed">#6B7280</color>  <!-- Серый -->
+    <color name="background_gray">#F5F7FA</color> <!-- Светло-серый фон -->
 
     <!-- Теги аллергий -->
     <color name="tag_red_bg">#FEF2F2</color>        <!-- Светло-красный фон -->
@@ -33,4 +25,19 @@
     <color name="text_light">#9CA3AF</color>
     <color name="green_light_bg">#D1FAE5</color>
     <color name="green_text">#10B981</color>
+
+
+    <!-- NEWWW -->
+    <color name="primary_teal">#0D9488</color>
+    <color name="screen_bg">#F5F7FA</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#4B5563</color>
+    <color name="text_hint">#6B7280</color>
+
+    <color name="shadow_color">#40000000</color>
+    <color name="stroke_light">#E5E7EB</color>
 </resources>
