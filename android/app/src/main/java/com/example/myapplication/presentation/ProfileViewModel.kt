@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.SessionManager
 import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.domain.UserProfileUi
 import com.example.myapplication.domain.UserRole
-import com.example.myapplication.presentation.SessionManager.currentUser
+import com.example.myapplication.SessionManager.currentUser
 import kotlinx.coroutines.launch
 
 class ProfileViewModel: ViewModel() {

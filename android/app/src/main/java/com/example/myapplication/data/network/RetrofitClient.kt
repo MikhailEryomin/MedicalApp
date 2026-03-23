@@ -3,7 +3,7 @@ package com.example.myapplication.data.network
 import com.example.myapplication.data.network.api.AuthApi
 import com.example.myapplication.data.network.api.DoctorApi
 import com.example.myapplication.data.network.api.PatientApi
-import com.example.myapplication.presentation.SessionManager
+import com.example.myapplication.SessionManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

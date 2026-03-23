@@ -1,4 +1,4 @@
-package com.example.myapplication.presentation
+package com.example.myapplication
 
 import android.content.Context
 import android.content.SharedPreferences

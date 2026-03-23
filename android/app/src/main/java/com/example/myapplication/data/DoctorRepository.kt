@@ -6,7 +6,7 @@ import com.example.myapplication.data.network.dto.CreatePatientRequestDto
 import com.example.myapplication.data.network.dto.CreatePrescriptionRequestDto
 import com.example.myapplication.data.network.dto.toDomain
 import com.example.myapplication.domain.*
-import com.example.myapplication.presentation.SessionManager
+import com.example.myapplication.SessionManager
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

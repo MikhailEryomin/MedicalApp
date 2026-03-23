@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.SessionManager
 import com.example.myapplication.data.AuthRepository
 import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.domain.Gender
