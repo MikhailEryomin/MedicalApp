@@ -30,7 +30,15 @@ class PatientListAdapter(private val onItemClick: (item: Patient) -> Unit): List
             val name = "${item.firstName} ${item.lastName}"
 
             binding.tvPatientName.text = name
-            binding.tvPatientAge.text = "${item.age} years"
+            var text = ""
+            if (item.age % 10 == 1) {
+                text = "год"
+            } else if (item.age % 10 == 2) {
+                text = "года"
+            } else {
+                text = "лет"
+            }
+            binding.tvPatientAge.text = "${item.age} $text"
             binding.tvInitials.text = "${item.firstName.first()}${item.lastName.first()}"
             binding.cardPatient.setOnClickListener {
                 onItemClick(item)

@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/patient_name_demo"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/text_header"
                 style="@style/TextAppearance.MedicalApp.Subheader"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -121,7 +121,7 @@
                 android:text="@string/section_main_info"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/text_header"
                 style="@style/TextAppearance.MedicalApp.Subheader" />
 
             <!-- Основная информация -->
@@ -155,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/value_full_name_demo"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/text_header"
                         style="@style/TextAppearance.MedicalApp.Description"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -181,7 +181,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/value_gender_demo"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/text_header"
                         style="@style/TextAppearance.MedicalApp.Description"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -207,7 +207,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/value_age_demo"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/text_header"
                         style="@style/TextAppearance.MedicalApp.Description"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -316,7 +316,6 @@
     android:id="@+id/bottomBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:padding="20dp"
     android:elevation="16dp"
     app:layout_constraintBottom_toBottomOf="parent">

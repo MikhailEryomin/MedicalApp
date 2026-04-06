@@ -23,7 +23,7 @@ class GlobalPatientAdapter(private val onAttachClick: (item: Patient) -> Unit) :
     inner class ViewHolder(private val binding: ItemPatientGlobalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Patient) {
             binding.tvPatientName.text = "${item.firstName} ${item.lastName}"
-            binding.tvPatientAge.text = "${item.age} years"
+            binding.tvPatientAge.text = "${item.age} лет"
             binding.tvInitials.text = "${item.firstName.first()}${item.lastName.first()}"
 
             binding.btnAttach.setOnClickListener {

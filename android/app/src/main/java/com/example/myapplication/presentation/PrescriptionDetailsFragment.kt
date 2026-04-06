@@ -61,16 +61,21 @@ class PrescriptionDetailsFragment: Fragment() {
 
     private fun bindViews(uiModel: PrescriptionUiModel) {
         binding.apply {
+
+            val unitResId = uiModel.prescription.medicine.form.unitNameRes
+
             val remaining = uiModel.totalCount - uiModel.takenCount
             tvPillsNumber.text = remaining.toString()
-            tvPillsRemaining.text = "$remaining из ${uiModel.totalCount} таблеток осталось"
+
             tvMedicineTitle.text = "${uiModel.prescription.medicine.name} ${uiModel.prescription.dosage}"
             tvCourseDates.text = "${uiModel.prescription.startDate} - ${uiModel.prescription.endDate}"
             tvInstructions.text = uiModel.prescription.notes
             tvDoctor.text = uiModel.doctorName
             circularProgressBar.max = uiModel.totalCount
             circularProgressBar.progress = remaining
-            tvFrequency.text = "${uiModel.prescription.frequency} pills per day"
+            val remainingText = resources.getQuantityString(unitResId, remaining, remaining)
+            tvFrequency.text = "$remainingText осталось"
+            tvPillsRemaining.text = "$remainingText из ${uiModel.totalCount} осталось"
         }
     }
 

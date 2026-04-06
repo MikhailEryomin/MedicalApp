@@ -102,7 +102,15 @@ class PatientDetailsFragment : Fragment() {
 
             tvHeaderName.text = "${patient.firstName} ${patient.lastName}"
             tvFullName.text = tvHeaderName.text
-            tvAge.text = "Возраст: ${patient.age} лет"
+            var text = ""
+            if (patient.age % 10 == 1) {
+                text = "год"
+            } else if (patient.age % 10 == 2) {
+                text = "года"
+            } else {
+                text = "лет"
+            }
+            tvAge.text = "Возраст: ${patient.age} $text"
             tvGender.text = when (patient.gender) {
                 Gender.MALE -> "Мужской"
                 Gender.FEMALE -> "Женский"

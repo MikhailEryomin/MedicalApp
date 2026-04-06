@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_title"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/text_header"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
@@ -146,7 +146,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/doctor_name_demo"
                             android:layout_weight="1"
-                            android:textColor="@color/text_primary"
+                            android:textColor="@color/text_header"
                             android:textSize="20sp"
                             style="@style/TextAppearance.MedicalApp.Body"
                             android:textStyle="bold" />
@@ -234,7 +234,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/settings_medication_reminder"
-                            android:textColor="@color/text_primary"
+                            android:textColor="@color/text_header"
                             style="@style/TextAppearance.MedicalApp.Description"
                             android:textStyle="bold" />
 
@@ -295,7 +295,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/settings_push_notifications"
-                            android:textColor="@color/text_primary"
+                            android:textColor="@color/text_header"
                             style="@style/TextAppearance.MedicalApp.Description"
                             android:textStyle="bold" />
 

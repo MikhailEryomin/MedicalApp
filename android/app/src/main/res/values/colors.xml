@@ -34,9 +34,10 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
-    <color name="text_primary">#1F2937</color>
-    <color name="text_secondary">#4B5563</color>
+    <color name="text_primary">#9CA3AF</color>
+    <color name="text_secondary">#6B7280</color>
     <color name="text_hint">#6B7280</color>
+    <color name="text_header">#1F2937</color>
 
     <color name="shadow_color">#40000000</color>
     <color name="stroke_light">#E5E7EB</color>

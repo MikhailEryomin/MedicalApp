@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Для таблеток -->
+    <plurals name="pills">
+        <item quantity="one">%d таблетка</item>
+        <item quantity="few">%d таблетки</item>
+        <item quantity="other">%d таблеток</item>
+    </plurals>
+
+    <!-- Для доз (сиропа) -->
+    <plurals name="doses">
+        <item quantity="one">%d доза</item>
+        <item quantity="few">%d дозы</item>
+        <item quantity="other">%d доз</item>
+    </plurals>
+
+    <!-- Для уколов -->
+    <plurals name="injections">
+        <item quantity="one">%d укол</item>
+        <item quantity="few">%d укола</item>
+        <item quantity="other">%d уколов</item>
+    </plurals>
+
+    <!-- Для мази (применения) -->
+    <plurals name="ointments">
+        <item quantity="one">%d применение</item>
+        <item quantity="few">%d применения</item>
+        <item quantity="other">%d применений</item>
+    </plurals>
+
+    <plurals name="age">
+        <item quantity="one">%d год</item>
+        <item quantity="few">%d лет</item>
+        <item quantity="other">%d лет</item>
+    </plurals>
+</resources>

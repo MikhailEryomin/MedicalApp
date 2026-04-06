@@ -31,6 +31,11 @@ class PatientPrescriptionsAdapter(): ListAdapter<Prescription, PatientPrescripti
 
     inner class PrescriptionViewHolder(private val binding: ItemPrescriptionBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Prescription) {
+
+            val context = binding.root.context // Получаем context из view
+            val unitResId = item.medicine.form.unitNameRes // Получаем ID ресурса (R.plurals.pills)
+            val frequency = item.frequency
+
             binding.tvMedicineName.text = "${item.medicine.name} ${item.medicine.defaultDosage}"
             val status = item.status.displayName
             binding.tvStatus.text = status
@@ -40,7 +45,11 @@ class PatientPrescriptionsAdapter(): ListAdapter<Prescription, PatientPrescripti
                 binding.tvStatus.background = ContextCompat.getDrawable(binding.tvStatus.context, R.drawable.bg_status_completed)
             }
 
-            binding.tvDosage.text = "${item.frequency} таблеток в день"
+            val frequencyText = context.resources.getQuantityString(unitResId, frequency, frequency)
+            binding.tvDosage.text = "$frequencyText в день"
+
+
+
             binding.tvStartDate.text = "Начало: ${item.startDate}"
         }
     }

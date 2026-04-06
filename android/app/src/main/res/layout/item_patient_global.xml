@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Иванов И.И."
-            android:textColor="@color/text_primary"
+            android:textColor="@color/text_header"
             android:textSize="20sp"
             style="@style/TextAppearance.MedicalApp.Body"
             android:textStyle="bold" />
@@ -55,9 +55,7 @@
             android:layout_height="wrap_content"
             android:text="45 years"
             android:textColor="@color/text_hint"
-            android:textSize="16dp"
-            style="@style/TextAppearance.MedicalApp.Description"
-            android:textStyle="bold" />
+            style="@style/TextAppearance.MedicalApp.Description" />
 
     </LinearLayout>
 

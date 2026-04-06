@@ -33,6 +33,11 @@ class PrescriptionsListAdapter(private val onItemClick: (item: PrescriptionUiMod
 
     inner class PrescriptionViewHolder(private val binding: ItemPatientPrescriptionBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PrescriptionUiModel) {
+
+            val context = binding.root.context
+            val unitResId = item.prescription.medicine.form.unitNameRes
+            val frequency = item.prescription.frequency
+
             binding.tvPrescMedicine.text = "${item.prescription.medicine.name} ${item.prescription.dosage} мг"
             binding.llPrescription.setOnClickListener {
                 onItemClick(item)
@@ -42,7 +47,8 @@ class PrescriptionsListAdapter(private val onItemClick: (item: PrescriptionUiMod
             binding.progressBar.progress = item.progressPercent
             binding.tvPillsLeft.text = "${item.totalCount - item.takenCount} / ${item.totalCount} осталось"
             binding.tvPrescDates.text = "${item.prescription.startDate} - ${item.prescription.endDate}"
-            binding.tvPrescFrequency.text = "${item.prescription.frequency} таблеток в день"
+            val frequencyText = context.resources.getQuantityString(unitResId, frequency, frequency)
+            binding.tvPrescFrequency.text = "$frequencyText в день"
             binding.tvDoctor.text = item.doctorName
 
             binding.btnMarkTaken.setOnClickListener {
@@ -53,17 +59,17 @@ class PrescriptionsListAdapter(private val onItemClick: (item: PrescriptionUiMod
             when {
                 item.isCompleted -> {
                     binding.btnMarkTaken.isEnabled = false
-                    binding.btnMarkTaken.text = "Completed"
-                    binding.btnMarkTaken.alpha = 0.5f // Немного прозрачности для красоты
+                    binding.btnMarkTaken.text = "Завершено"
+                    binding.btnMarkTaken.alpha = 0.5f
                 }
                 item.isLoading -> {
                     binding.btnMarkTaken.isEnabled = false
-                    binding.btnMarkTaken.text = "Saving..."
+                    binding.btnMarkTaken.text = "Сохранение..."
                     binding.btnMarkTaken.alpha = 0.7f
                 }
                 else -> {
                     binding.btnMarkTaken.isEnabled = true
-                    binding.btnMarkTaken.text = "Mark as Taken"
+                    binding.btnMarkTaken.text = "Отметиться"
                     binding.btnMarkTaken.alpha = 1.0f
                 }
             }
@@ -75,12 +81,10 @@ class PrescriptionsListAdapter(private val onItemClick: (item: PrescriptionUiMod
 
     class DiffCallback : DiffUtil.ItemCallback<PrescriptionUiModel>() {
         override fun areItemsTheSame(oldItem:  PrescriptionUiModel, newItem: PrescriptionUiModel): Boolean {
-            // Сравниваем ID элементов (уникальный идентификатор)
             return oldItem.prescription.id == newItem.prescription.id
         }
 
         override fun areContentsTheSame(oldItem: PrescriptionUiModel, newItem: PrescriptionUiModel): Boolean {
-            // Сравниваем содержимое (если данные изменились)
             return oldItem == newItem
         }
     }

@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/login_title"
-            android:textColor="@color/text_primary"
+            android:textColor="@color/text_header"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/logoContainer"
@@ -143,6 +143,7 @@
                     <EditText
                         android:id="@+id/etEmail"
 
+                        style="@style/TextAppearance.MedicalApp.Body"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
@@ -151,7 +152,6 @@
                         android:padding="0dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        style="@style/TextAppearance.MedicalApp.Body"
                         android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
